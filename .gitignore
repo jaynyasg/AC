@@ -1,0 +1,14 @@
+# Local agent / tooling config (machine-specific)
+.claude/
+.agents/
+
+# Redundant archive of the ac/ assets folder
+ac.zip
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*~
+*.swp
+*.tmp
