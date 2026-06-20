@@ -7,6 +7,7 @@ import { Menu, Phone, Snowflake, X } from "./icons";
 const NAV = [
   { to: "/services", label: "Services" },
   { to: "/maintenance", label: "Maintenance" },
+  { to: "/membership", label: "Membership" },
   { to: "/faq", label: "FAQ & Tips" },
   { to: "/gallery", label: "Our Work" },
   { to: "/referrals", label: "Referrals" },
