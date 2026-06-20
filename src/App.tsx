@@ -7,6 +7,7 @@ import Faq from "./pages/Faq";
 import Gallery from "./pages/Gallery";
 import Referrals from "./pages/Referrals";
 import Membership from "./pages/Membership";
+import Testimonials from "./pages/Testimonials";
 import Book from "./pages/Book";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="gallery" element={<Gallery />} />
         <Route path="referrals" element={<Referrals />} />
         <Route path="membership" element={<Membership />} />
+        <Route path="testimonials" element={<Testimonials />} />
         <Route path="book" element={<Book />} />
         <Route path="*" element={<NotFound />} />
       </Route>

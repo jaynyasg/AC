@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { COMPANY } from "../../shared/knowledge";
+import { COMPANY, LINKS } from "../../shared/knowledge";
 import { Phone, Snowflake } from "./icons";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
@@ -36,6 +36,13 @@ export default function Footer() {
               </a>
             </li>
             <li className="text-white/65">License {COMPANY.license}</li>
+            {LINKS.googleReview && (
+              <li>
+                <a href={LINKS.googleReview} className="text-white/80 hover:text-frost">
+                  Leave us a Google review
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -60,6 +67,7 @@ export default function Footer() {
             <li><Link to="/maintenance" className="hover:text-frost">Maintenance Program</Link></li>
             <li><Link to="/membership" className="hover:text-frost">Membership &amp; Plans</Link></li>
             <li><Link to="/faq" className="hover:text-frost">FAQ &amp; Homeowner Tips</Link></li>
+            <li><Link to="/testimonials" className="hover:text-frost">Testimonials</Link></li>
             <li><Link to="/book" className="hover:text-frost">Book / Free Estimate</Link></li>
           </ul>
         </div>

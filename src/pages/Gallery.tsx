@@ -1,6 +1,4 @@
-import { COMPANY } from "../../shared/knowledge";
-import { Cta, Eyebrow, Section, SectionHeading } from "../components/Bits";
-import { Star } from "../components/icons";
+import { Eyebrow, Section, SectionHeading } from "../components/Bits";
 import { BEFORE_AFTER } from "../data/gallery";
 
 // Ambient cool-blue imagery — mood only, NOT captioned as specific customer jobs.
@@ -77,28 +75,6 @@ export default function Gallery() {
           </p>
         </Section>
       )}
-
-      <Section wash>
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 flex justify-center gap-1 text-brand-400">
-            <Star /> <Star /> <Star /> <Star /> <Star />
-          </div>
-          <h2 className="text-2xl font-semibold sm:text-3xl">Customer reviews are on the way</h2>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-            We're a growing family business and we're gathering feedback from the people we serve.
-            Worked with us recently? We'd be grateful if you shared your experience — and you might be
-            the first review on this page.
-          </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <Cta href={`mailto:${COMPANY.email}?subject=My experience with DI Felice's HVAC`} variant="primary">
-              Share your experience
-            </Cta>
-            <Cta to="/book" variant="ghost">
-              Book a visit
-            </Cta>
-          </div>
-        </div>
-      </Section>
     </>
   );
 }

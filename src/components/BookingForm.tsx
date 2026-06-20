@@ -5,7 +5,7 @@ import {
   type BookingResponse,
   type ServiceType,
 } from "../../shared/contract";
-import { COMPANY } from "../../shared/knowledge";
+import { COMPANY, LINKS } from "../../shared/knowledge";
 import { Cta } from "./Bits";
 import { Check, Phone } from "./icons";
 
@@ -76,10 +76,15 @@ export default function BookingForm() {
           We'll reach out soon to confirm. For anything urgent, call us directly and we'll get right
           on it.
         </p>
-        <div className="mt-5 flex justify-center">
+        <div className="mt-5 flex flex-wrap justify-center gap-3">
           <Cta href={telHref} variant="primary">
             <Phone size={16} /> {COMPANY.phone}
           </Cta>
+          {LINKS.googleReview && (
+            <Cta href={LINKS.googleReview} variant="ghost">
+              Leave a Google review
+            </Cta>
+          )}
         </div>
       </div>
     );
