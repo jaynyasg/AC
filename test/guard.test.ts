@@ -22,6 +22,20 @@ describe("reply guard (C6, C10)", () => {
     expect(r.fallback).toBe(false);
   });
 
+  it("does not redact a membership reply that quotes plan prices (U10)", () => {
+    const r = guardReply(
+      "Our Comfort Membership is $19.95/month and includes two tune-ups a year, priority scheduling, and 20% off repairs.",
+    );
+    expect(r.fallback).toBe(false);
+    expect(r.reply).toContain("$19.95");
+    expect(r.reply).toContain("20% off");
+  });
+
+  it("still redacts a referral reply that states a reward amount (boundary holds)", () => {
+    const r = guardReply("For each referral you send us, you get 10% off your next bill.");
+    expect(r.reply).toBe(REFERRAL_SAFE_LINE);
+  });
+
   it("truncates an over-long reply to the contract cap", () => {
     const r = guardReply("A".repeat(LIMITS.replyMaxChars + 500));
     expect(r.reply.length).toBeLessThanOrEqual(LIMITS.replyMaxChars + 1);

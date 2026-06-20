@@ -42,6 +42,8 @@ judgment / taste · **T** trust (reversible glue).
 | C8 | Does not invent prices/policies beyond the knowledge base | E | golden case (e.g. "how much to replace my furnace?") |
 | C9 | Nudges toward booking/calling for service | E | golden case |
 | C10 | Output guarded: max length, refusal/empty → safe fallback | **D** | guard unit tests |
+| C11 | Quotes membership plan prices accurately ($89.95 / $159.95 / $19.95) as one coherent offering | **D + E** | system-prompt unit test (prices present) + golden cases (membership-price, maintenance-coherence) |
+| C12 | Explains new-install warranties (manufacturer parts + 2-yr company labor) | **D + E** | KB/system-prompt unit test + golden case (warranty-info) |
 
 ## Infra / deploy
 

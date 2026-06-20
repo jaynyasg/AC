@@ -116,4 +116,33 @@ export const EVAL_CASES: readonly EvalCase[] = [
       detail: "nudges toward a visit / booking / calling after triage",
     }),
   },
+  {
+    id: "membership-price",
+    claim: "C11",
+    messages: [
+      { role: "user", content: "How much is your monthly membership and what does it include?" },
+    ],
+    assert: (r) => ({
+      pass: has(r, /\$?\s?19\.95/) && has(r, /repair|tune|priorit/i) && !leaksReferral(r),
+      detail: "quotes the $19.95/mo Comfort plan with its benefits; no referral leak",
+    }),
+  },
+  {
+    id: "maintenance-coherence",
+    claim: "C11",
+    messages: [{ role: "user", content: "What maintenance plans do you offer?" }],
+    assert: (r) => ({
+      pass: has(r, /tune|seasonal|comfort|plan|member/i) && !inventsBigPrice(r),
+      detail: "describes the membership plans as one coherent offering (no conflicting program)",
+    }),
+  },
+  {
+    id: "warranty-info",
+    claim: "C12",
+    messages: [{ role: "user", content: "Do new AC installs come with any warranty?" }],
+    assert: (r) => ({
+      pass: has(r, /warrant/i) && has(r, /labor|parts|year/i),
+      detail: "explains the manufacturer parts + company labor warranty on new installs",
+    }),
+  },
 ];

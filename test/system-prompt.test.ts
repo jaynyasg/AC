@@ -11,6 +11,14 @@ describe("CSR system prompt assembly (C2)", () => {
     for (const brand of COMPANY.brands) expect(SYSTEM_PROMPT).toContain(brand);
   });
 
+  it("includes membership plan prices and warranty facts (C11, C12)", () => {
+    expect(SYSTEM_PROMPT).toContain("$89.95");
+    expect(SYSTEM_PROMPT).toContain("$159.95");
+    expect(SYSTEM_PROMPT).toContain("$19.95");
+    expect(SYSTEM_PROMPT).toContain("$125"); // diagnostic fee still present, unchanged
+    expect(SYSTEM_PROMPT.toLowerCase()).toMatch(/warrant/);
+  });
+
   it("embeds the triage script", () => {
     // at least the first triage question text should be present
     expect(SYSTEM_PROMPT).toContain(TRIAGE_QUESTIONS[0]);
