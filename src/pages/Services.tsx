@@ -1,6 +1,6 @@
-import { COMPANY } from "../../shared/knowledge";
-import { Card, Cta, Eyebrow, Section, SectionHeading } from "../components/Bits";
-import { Phone } from "../components/icons";
+import { COMPANY, WARRANTIES } from "../../shared/knowledge";
+import { Card, CheckList, Cta, Eyebrow, Section, SectionHeading } from "../components/Bits";
+import { Phone, Shield } from "../components/icons";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
@@ -44,6 +44,29 @@ export default function Services() {
                 Book online
               </Cta>
             </div>
+          </Card>
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeading
+          title="Warranties that protect your investment"
+          lead="New installations are backed at two levels — by the equipment manufacturer and by us directly."
+        />
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          <Card className="flex items-start gap-4">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600">
+              <Shield size={20} />
+            </span>
+            <CheckList items={WARRANTIES} />
+          </Card>
+          <Card>
+            <h3 className="text-[16px] font-semibold">We handle the registration</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">
+              When your new equipment qualifies for an extended manufacturer parts warranty, we
+              register it with the manufacturer on your behalf — so you're covered without the
+              paperwork. Ask us what your specific system qualifies for.
+            </p>
           </Card>
         </div>
       </Section>
