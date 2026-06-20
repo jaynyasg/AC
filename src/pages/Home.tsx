@@ -29,59 +29,70 @@ const LINKS = [
   { to: "/book", icon: <Snowflake size={20} />, title: "Free Estimates", body: "Considering a new system or generator? Estimates are free." },
 ];
 
+// Compact, honest trust cues docked under the hero panel. Every figure is grounded
+// in shared/knowledge.ts — no invented claims, no social proof.
+const TRUST = [
+  { value: `$${COMPANY.diagnosticFee}`, label: "Diagnostic — credited toward your repair" },
+  { value: "Free", label: "Estimates on new AC systems & generators" },
+  { value: "Licensed", label: `Texas ${COMPANY.license}` },
+];
+
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <section className="wash-cool border-b border-line">
-        <div className="container-page grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2">
-          <div>
-            <Eyebrow>AC &amp; Heating · Houston, TX</Eyebrow>
-            <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-              Quality Comfort,
+      {/* Hero — "Frostline Calm": a full-bleed hero image with the content floating
+          like a frosted control panel. Header stays as-is (approved "F with the current header"). */}
+      <section className="relative isolate overflow-hidden border-b border-line">
+        {/* Decorative backdrop — the headline carries the meaning, so the image is aria-hidden. */}
+        <img
+          src="/assets/background.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover object-top motion-safe:animate-revealIn"
+        />
+        {/* Icy veils fade the portrait image into a readable frosted base — heaviest at the
+            bottom and left, where the panel sits. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-white/5 via-brand-50/60 to-brand-50"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-brand-50/90 via-brand-50/25 to-transparent"
+        />
+
+        <div className="container-page flex min-h-[clamp(520px,68vh,640px)] items-end py-12 sm:py-16">
+          <div className="w-full max-w-xl rounded-[28px] border border-white/60 bg-white/70 p-6 shadow-pop backdrop-blur-xl motion-safe:animate-riseIn sm:p-8">
+            <Eyebrow>Cool air, clear answers · Houston, TX</Eyebrow>
+            <h1 className="text-4xl font-semibold leading-[1.02] tracking-tight text-brand-950 sm:text-5xl">
+              Comfort you can feel
               <br />
-              <span className="text-brand-600">Family First.</span>
+              before we say a word.
             </h1>
-            <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-ink-2">
-              Reliable AC and heating solutions to ensure your home's health and comfort. With over{" "}
-              {COMPANY.experienceYears} years of experience, we keep your system running efficiently,
-              year-round.
-            </p>
-            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
-              Not cooling or not working properly? Call us today and we'll get to the root of your
-              problem right away.
+            <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink-2">
+              Licensed Houston HVAC — repair, installation, and maintenance, with right-sized
+              systems and clear next steps. With {COMPANY.experienceYears}+ years of experience, we
+              explain the issue, then make booking or calling simple.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Cta to="/book" variant="primary" arrow>
                 Get a Free Estimate
               </Cta>
-              <Cta href={telHref} variant="dark">
+              <Cta href={telHref} variant="ghost">
                 <Phone size={16} /> {COMPANY.phone}
               </Cta>
             </div>
-            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[12.5px] font-medium text-muted">
-              <span className="inline-flex items-center gap-1.5"><Shield size={15} /> Licensed &amp; Insured</span>
-              <span className="inline-flex items-center gap-1.5"><Wrench size={15} /> Commercial &amp; Residential</span>
-              <span className="inline-flex items-center gap-1.5"><Star size={14} /> {COMPANY.experienceYears}+ years</span>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="overflow-hidden rounded-card border border-line shadow-card">
-              <img
-                src="/assets/background.png"
-                alt="Cool air flowing from a wall-mounted air conditioning unit"
-                className="h-full w-full object-cover"
-                loading="eager"
-              />
-            </div>
-            <div className="absolute -bottom-4 -left-4 hidden rounded-card border border-line bg-paper px-4 py-3 shadow-pop sm:block">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
-                Diagnostic fee
-              </p>
-              <p className="text-[15px] font-semibold text-ink">
-                ${COMPANY.diagnosticFee} <span className="font-normal text-muted">· credited toward your repair</span>
-              </p>
+            <div className="mt-7 grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
+              {TRUST.map((t, i) => (
+                <div
+                  key={t.value}
+                  className="flex items-baseline gap-2 rounded-2xl border border-white/55 bg-white/55 p-3 shadow-card backdrop-blur-md motion-safe:animate-popIn sm:block"
+                  style={{ animationDelay: `${160 + i * 90}ms` }}
+                >
+                  <p className="text-[15px] font-semibold tracking-tight text-brand-700">{t.value}</p>
+                  <p className="text-[11.5px] leading-snug text-ink-2 sm:mt-1">{t.label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
