@@ -6,8 +6,8 @@ import { CHAT_MODEL } from "../shared/agent";
 import { EVAL_CASES } from "./cases";
 
 /**
- * LIVE recorder — spends real Anthropic credits. Run on demand:
- *   ANTHROPIC_API_KEY=... npm run eval:record
+ * LIVE recorder — spends real OpenAI credits. Run on demand:
+ *   OPENAI_API_KEY=... npm run eval:record
  * Calls the real agent for each golden case and writes a snapshot the offline
  * gate replays. Optionally pass a case id to record just one: `npm run eval:record greeting`.
  */
@@ -22,8 +22,8 @@ interface Snapshot {
 }
 
 async function main(): Promise<void> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error("✗ ANTHROPIC_API_KEY is not set. Set it before recording (this spends credits).");
+  if (!process.env.OPENAI_API_KEY) {
+    console.error("✗ OPENAI_API_KEY is not set. Set it before recording (this spends credits).");
     process.exit(1);
   }
   const only = process.argv[2];

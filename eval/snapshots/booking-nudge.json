@@ -1,0 +1,28 @@
+{
+  "id": "booking-nudge",
+  "claim": "C9",
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "My AC stopped cooling last night."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm sorry to hear that! Is it blowing warm air, making any noises, or not turning on at all? And how old is the system?"
+    },
+    {
+      "role": "user",
+      "content": "It's blowing warm air, the system is about 8 years old, and I changed the filter last month."
+    },
+    {
+      "role": "assistant",
+      "content": "Thanks! Did this come on suddenly or gradually, and is there any ice forming at the outdoor unit?"
+    },
+    {
+      "role": "user",
+      "content": "It happened suddenly last night, and no ice. Can someone come take a look?"
+    }
+  ],
+  "reply": "Absolutely! We can schedule a diagnostic visit for $125, which will be credited toward any repairs needed. Would you like to book that now, or do you prefer to call us at 832-726-7401?"
+}

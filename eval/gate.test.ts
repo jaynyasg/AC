@@ -10,7 +10,7 @@ import { EVAL_CASES } from "./cases";
  *
  * If a snapshot is missing, the case is skipped with a loud note rather than
  * failing — a flaky/red-by-default gate trains you to ignore it. Record with
- * `npm run eval:record` (needs ANTHROPIC_API_KEY) to turn the dominant oracle green.
+ * `npm run eval:record` (needs OPENAI_API_KEY) to turn the dominant oracle green.
  */
 const SNAP_DIR = join(dirname(fileURLToPath(import.meta.url)), "snapshots");
 
@@ -23,7 +23,7 @@ const anyRecorded = EVAL_CASES.some((c) => existsSync(join(SNAP_DIR, `${c.id}.js
 
 describe("CSR chatbot golden eval (snapshot replay)", () => {
   if (!anyRecorded) {
-    it.skip("no snapshots recorded — run `npm run eval:record` (needs ANTHROPIC_API_KEY)", () => {});
+    it.skip("no snapshots recorded — run `npm run eval:record` (needs OPENAI_API_KEY)", () => {});
   }
 
   for (const c of EVAL_CASES) {

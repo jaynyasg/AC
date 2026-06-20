@@ -63,13 +63,16 @@ judgment / taste · **T** trust (reversible glue).
 
 ## Audit re-grade (build complete)
 
-**Green now (verified offline by `npm run verify` + build + screenshots + bundle audit):**
-S1 S2 S3 S4 S5 S6 S7 S8 · B1 B2 B3 · C1 C2 C6(deterministic) C10 · I1.
-- S5 hard-checked: `grep` of `dist/` finds no referral amount; system prompt & Anthropic
+**Green now (`npm run verify` = 35 tests, all passing — typecheck + unit + recorded eval replay):**
+S1 S2 S3 S4 S5 S6 S7 S8 · B1 B2 B3 · **C1–C10** · I1.
+- C3–C9 recorded against live **gpt-4o-mini** and replayed offline. Eyeballed: greets as
+  DI Felice's; quotes $125 credited; **referral reply discloses no amount** (defers to John);
+  declines off-topic; invents no price; converts to a booking after triage.
+- S5 hard-checked: `grep` of `dist/` finds no referral amount; system prompt & the OpenAI
   SDK confirmed absent from the web bundle (server-side only).
-- 28 unit/contract/API tests pass; taste surface eyeballed across pages + mobile.
+- Taste surface eyeballed across pages + mobile.
 
-**Pending the owner's `ANTHROPIC_API_KEY` (the live oracle — harness is built and ready):**
-- C3–C9: golden chatbot eval — run `npm run eval:record` then `npm run verify`.
-- I2: live end-to-end (bot answering for real) — `vercel dev` or deploy.
-- I3: deployed live Vercel URL — `vercel --prod` with env vars set.
+**Pending only the live deploy:**
+- I2: live end-to-end on Vercel (`vercel dev` or deploy) — the bot is proven correct via the
+  recorded eval; this confirms it in the serverless runtime.
+- I3: deployed live Vercel URL — `vercel --prod` with `OPENAI_API_KEY` set in project env.

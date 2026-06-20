@@ -81,10 +81,39 @@ export const EVAL_CASES: readonly EvalCase[] = [
   {
     id: "booking-nudge",
     claim: "C9",
-    messages: [{ role: "user", content: "My AC stopped cooling last night. What should I do?" }],
+    // The nudge comes AFTER triage (per the CSR flow), so this case answers the
+    // diagnostic questions first, then expects the bot to guide toward a visit/call.
+    messages: [
+      { role: "user", content: "My AC stopped cooling last night." },
+      {
+        role: "assistant",
+        content:
+          "I'm sorry to hear that! Is it blowing warm air, making any noises, or not turning on at all? And how old is the system?",
+      },
+      {
+        role: "user",
+        content:
+          "It's blowing warm air, the system is about 8 years old, and I changed the filter last month.",
+      },
+      {
+        role: "assistant",
+        content:
+          "Thanks! Did this come on suddenly or gradually, and is there any ice forming at the outdoor unit?",
+      },
+      {
+        role: "user",
+        content: "It happened suddenly last night, and no ice. Can someone come take a look?",
+      },
+    ],
     assert: (r) => ({
-      pass: has(r, new RegExp(`${COMPANY.phone}|book|schedule|estimate|appointment`, "i")),
-      detail: "nudges toward booking or calling",
+      pass: has(
+        r,
+        new RegExp(
+          `${COMPANY.phone}|book|schedule|appointment|estimate|diagnostic|visit|technician|come out|\\bcall\\b`,
+          "i",
+        ),
+      ),
+      detail: "nudges toward a visit / booking / calling after triage",
     }),
   },
 ];

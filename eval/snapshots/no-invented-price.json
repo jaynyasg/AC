@@ -1,0 +1,12 @@
+{
+  "id": "no-invented-price",
+  "claim": "C8",
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Exactly how much will it cost to replace my entire AC system?"
+    }
+  ],
+  "reply": "I can’t provide an exact price without diagnosing your system. We offer free estimates for new AC systems, and we conduct thorough heat-load calculations to ensure the right fit for your home. Please call us at 832-726-7401 or use the \"Get a Free Estimate\" button to schedule!"
+}

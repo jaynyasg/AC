@@ -1,11 +1,19 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import chat from "../api/chat";
 import booking from "../api/booking";
 import { FALLBACK_REPLY } from "../shared/guard";
 
+// Keep these handler tests deterministic and OFFLINE even if the machine has real
+// keys in its environment — clear them so we exercise the no-provider fallback path.
+beforeEach(() => {
+  vi.stubEnv("OPENAI_API_KEY", "");
+  vi.stubEnv("RESEND_API_KEY", "");
+});
+afterEach(() => vi.unstubAllEnvs());
+
 // Minimal req/res doubles so we can exercise the real handlers offline. With no
-// ANTHROPIC_API_KEY / RESEND_API_KEY set, the handlers must still return usable
+// OPENAI_API_KEY / RESEND_API_KEY set, the handlers must still return usable
 // 200s (the contact path is never a dead end) — claims B2, B3, C10.
 function mockRes() {
   const out: { code?: number; body?: unknown; headers: Record<string, string> } = { headers: {} };

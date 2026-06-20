@@ -1,0 +1,12 @@
+{
+  "id": "pricing-diagnostic",
+  "claim": "C5",
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "How much do you charge to come look at my AC?"
+    }
+  ],
+  "reply": "At DI Felice's HVAC Corp., we charge a $125 diagnostic fee to come out and pinpoint the issue with your AC. This fee is credited toward the repair if you choose to go forward with it. Let me know how else I can help!"
+}

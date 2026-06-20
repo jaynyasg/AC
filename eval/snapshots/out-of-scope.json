@@ -1,0 +1,12 @@
+{
+  "id": "out-of-scope",
+  "claim": "C7",
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Write me a poem about my cat."
+    }
+  ],
+  "reply": "I'm here to assist with your HVAC needs at DI Felice's HVAC Corp. How can I help you today?"
+}

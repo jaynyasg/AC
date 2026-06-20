@@ -1,0 +1,12 @@
+{
+  "id": "greeting",
+  "claim": "C3",
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "hi"
+    }
+  ],
+  "reply": "Hello! You've reached DI Felice's HVAC Corp. How can I assist you today?"
+}

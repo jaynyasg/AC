@@ -1,0 +1,12 @@
+{
+  "id": "triage-not-working",
+  "claim": "C4",
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "My AC isn't working"
+    }
+  ],
+  "reply": "Welcome to DI Felice's HVAC Corp.! I'm sorry to hear that your AC isn't working. Can you tell me if it's making any strange noises or blowing warm air?"
+}

@@ -8,7 +8,7 @@ customer-service chatbot. Built from `PRD.md` via the `prd-compile` method
 
 - **Scope:** Full marketing site **+** a working LLM CSR chatbot.
 - **Stakes:** Production-grade; **deploy live** (Vercel) is the final oracle.
-- **Chatbot:** Claude-powered CSR — greets, answers AC/company questions from a
+- **Chatbot:** OpenAI gpt-4o-mini-powered CSR — greets, answers AC/company questions from a
   knowledge base, runs the diagnostic **triage** questions (from `ac/CSR ai building.pdf`),
   and nudges toward booking/calling. Gated by a golden-Q/A eval.
 - **Look & feel:** "Cool-blue clean & trustworthy" — House-style structure
@@ -19,7 +19,7 @@ customer-service chatbot. Built from `PRD.md` via the `prd-compile` method
 - **Web:** Vite + React 18 + TypeScript + React Router + Tailwind v3 (House-style
   preset). SPA, one route per PRD page. Chat widget mounts in the shared layout
   → present on every page ("pop-up on each page").
-- **API:** Vercel serverless functions in `api/` — `chat.ts` (Anthropic SDK) and
+- **API:** Vercel serverless functions in `api/` — `chat.ts` (OpenAI SDK, gpt-4o-mini) and
   `booking.ts` (booking/contact request). No database; no auth. Stateless.
 - **Shared:** `shared/` is pure TS (no React), imported by both `src/` and `api/`:
   the typed boundary **contract** (Zod), the AC **knowledge base**, the CSR
@@ -46,20 +46,20 @@ customer-service chatbot. Built from `PRD.md` via the `prd-compile` method
 - `npm run dev` — Vite dev server (web). `vercel dev` — web + serverless together.
 - `npm run verify` — **the gate**: typecheck (`tsc --noEmit`) + unit + offline eval
   replay. Deterministic, offline, fast. Bound to the project `Stop` hook.
-- `npm run eval:record` — **on demand, costs money**: hit live Claude, refresh
-  `eval/snapshots/`. Needs `ANTHROPIC_API_KEY`. Never part of `verify`.
+- `npm run eval:record` — **on demand, costs money**: hit live OpenAI, refresh
+  `eval/snapshots/`. Needs `OPENAI_API_KEY`. Never part of `verify`.
 - `npm run build` — production build.
 
 ## Going live (the irreducible manual steps)
 
 The build is complete and the offline gate is green. Three steps need YOUR credentials:
 
-1. **Add the API key.** Copy `.env.example` → `.env.local` and set `ANTHROPIC_API_KEY`.
+1. **Add the API key.** Copy `.env.example` → `.env.local` and set `OPENAI_API_KEY`.
    (Optional: `RESEND_API_KEY` + `BOOKING_TO_EMAIL` to actually email booking requests.)
 2. **Record the chatbot eval, then gate.** `npm run eval:record` (spends a few cents of
-   Anthropic credit) writes `eval/snapshots/`; then `npm run verify` turns the dominant
+   OpenAI credit) writes `eval/snapshots/`; then `npm run verify` turns the dominant
    oracle (claims C3–C9) green. Re-record after changing the prompt/KB.
-3. **Deploy.** `vercel` (preview) then `vercel --prod`. Set `ANTHROPIC_API_KEY` (and any
+3. **Deploy.** `vercel` (preview) then `vercel --prod`. Set `OPENAI_API_KEY` (and any
    email vars) in the Vercel project's Environment Variables. `vercel dev` runs the site +
    serverless functions together locally if you want to exercise the live bot first.
 
@@ -71,7 +71,7 @@ The build is complete and the offline gate is green. Three steps need YOUR crede
 
 ## Environment
 
-- `ANTHROPIC_API_KEY` — required at runtime for the chatbot (and `eval:record`).
+- `OPENAI_API_KEY` — required at runtime for the chatbot (and `eval:record`).
 - `RESEND_API_KEY` + `BOOKING_TO_EMAIL` — optional; if set, `api/booking` emails the
   request. If unset, booking still succeeds (logged) and the UI shows call/email
   fallbacks (832-726-7401 / difeliceshvac@gmail.com) so the path is never dead.
