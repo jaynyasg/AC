@@ -54,7 +54,7 @@ Several of these map onto existing honest empty-state stubs (`src/pages/Gallery.
 - R2. Email delivery activates when a Resend key is configured; with no key, booking still succeeds, is logged server-side, and the UI shows call/email fallbacks. (Structural — preserve existing behavior.)
 
 **Membership / plans**
-- R3. A plans/membership page presents three options: a one-time **Tune-Up** ($89.95), a **Seasonal** bi-annual plan ($159.95/yr, includes priority scheduling), and a **Comfort** membership ($19.95/mo: 2 visits/yr + priority scheduling + 20% off repairs).
+- R3. A plans/membership page presents three options: a one-time **Tune-Up** ($89.95), a **Seasonal** bi-annual plan ($159.95/yr, includes priority scheduling), and a **Comfort** membership ($24.95/mo: 2 visits/yr + priority scheduling + 20% off repairs).
 - R4. Each plan has an enroll button that initiates payment via Stripe Checkout — subscription mode for recurring plans, one-time mode for the tune-up.
 - R5. When Stripe is not yet configured (no keys / price IDs), enroll buttons fall back gracefully to a call/email-to-enroll path — never a dead or erroring button.
 - R6. Plan definitions (name, price, billing interval, features, Stripe price-id mapping) live in a single source of truth so price/label changes are one-line edits.
@@ -90,9 +90,7 @@ Several of these map onto existing honest empty-state stubs (`src/pages/Gallery.
 |---|---|---|---|---|---|
 | Tune-Up | $89.95 one-time | 1 (one tune-up) | — | — | one-time |
 | Seasonal | $159.95 / year | 2 | ✓ | — | subscription (yearly) |
-| Comfort | $19.95 / month* | 2 | ✓ | 20% off repairs | subscription (monthly) |
-
-\*Placeholder; one-line change to $24.95 if John prefers.
+| Comfort | $24.95 / month | 2 | ✓ | 20% off repairs | subscription (monthly) |
 
 ---
 
@@ -135,7 +133,7 @@ Several of these map onto existing honest empty-state stubs (`src/pages/Gallery.
 - **Stripe is the system of record for memberships** (no local subscriptions table). Stripe tracks status/renewals/dunning automatically; John sees the roster + MRR in the Stripe Dashboard. A webhook emails him on enrollment/cancellation/failure for awareness, and perks are verified against Stripe and applied operationally. A custom mirror would just create a second, stale source of truth. The boundary: on-site member accounts or automated online benefit application is the point at which a datastore would become warranted — out of scope for now.
 - **Curated testimonials + Google-review funnel** (no on-site submission): honors the no-fabrication rule and avoids a datastore, moderation, and spam.
 - **Membership + warranty facts added to the chatbot knowledge base**: lets the bot answer accurately; a deliberate, controlled extension of today's "$125 is the only hard fact it quotes" rule.
-- **Monthly membership defaulted to $19.95**: friendliest entry price for adoption; trivially changed to $24.95 later.
+- **Monthly membership confirmed at $24.95** before charging real cards.
 
 ---
 
@@ -156,4 +154,4 @@ Several of these map onto existing honest empty-state stubs (`src/pages/Gallery.
 - [Affects R4][Technical] Exact Stripe mode per plan and the success/cancel return-URL behavior — settle during planning.
 - [Affects R7, R11][Technical] How membership/warranty facts integrate with the response guard so the bot quotes only knowledge-base-sourced prices/terms.
 - [Affects R13][Needs research] The most effective placements/timing for the Google-review CTA that convert without nagging.
-- [Affects R3][User decision — defaulted] Final monthly price ($19.95 vs $24.95) — defaulted to $19.95; confirm before charging real cards.
+- [Affects R3][User decision — confirmed] Final monthly price is $24.95.

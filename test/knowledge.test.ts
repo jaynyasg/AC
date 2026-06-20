@@ -50,7 +50,7 @@ describe("membership + warranty facts (U1)", () => {
     const byKey = Object.fromEntries(MEMBERSHIP_PLANS.map((p) => [p.key, p]));
     expect(byKey.tuneup.price).toBe("$89.95");
     expect(byKey.seasonal.price).toBe("$159.95");
-    expect(byKey.comfort.price).toBe("$19.95");
+    expect(byKey.comfort.price).toBe("$24.95");
   });
 
   it("maps each plan to a Stripe price env var with a valid mode", () => {

@@ -14,7 +14,7 @@ describe("CSR system prompt assembly (C2)", () => {
   it("includes membership plan prices and warranty facts (C11, C12)", () => {
     expect(SYSTEM_PROMPT).toContain("$89.95");
     expect(SYSTEM_PROMPT).toContain("$159.95");
-    expect(SYSTEM_PROMPT).toContain("$19.95");
+    expect(SYSTEM_PROMPT).toContain("$24.95");
     expect(SYSTEM_PROMPT).toContain("$125"); // diagnostic fee still present, unchanged
     expect(SYSTEM_PROMPT.toLowerCase()).toMatch(/warrant/);
   });
