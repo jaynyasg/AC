@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { BookingRequest, ChatRequest, parse } from "../shared/contract";
+import {
+  BookingRequest,
+  ChatRequest,
+  CheckoutPlan,
+  CheckoutRequest,
+  parse,
+} from "../shared/contract";
+import { MEMBERSHIP_PLANS } from "../shared/knowledge";
 
 describe("ChatRequest contract (C1)", () => {
   it("accepts a valid conversation", () => {
@@ -49,5 +56,28 @@ describe("BookingRequest contract (B1, B3)", () => {
   it("rejects a malformed email but allows an empty string", () => {
     expect(parse(BookingRequest, { ...valid, email: "not-an-email" }).ok).toBe(false);
     expect(parse(BookingRequest, { ...valid, email: "" }).ok).toBe(true);
+  });
+});
+
+describe("CheckoutRequest contract (U2 / R4, R5)", () => {
+  it("accepts a valid plan key", () => {
+    expect(parse(CheckoutRequest, { plan: "comfort" }).ok).toBe(true);
+  });
+
+  it("accepts an optional prefill email and an empty string", () => {
+    expect(parse(CheckoutRequest, { plan: "comfort", email: "a@b.com" }).ok).toBe(true);
+    expect(parse(CheckoutRequest, { plan: "tuneup", email: "" }).ok).toBe(true);
+  });
+
+  it("rejects an unknown plan and reports the field", () => {
+    const r = parse(CheckoutRequest, { plan: "gold" });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.fields.plan).toBeDefined();
+  });
+
+  it("plan keys stay in sync with MEMBERSHIP_PLANS", () => {
+    expect([...CheckoutPlan.options].sort()).toEqual(
+      MEMBERSHIP_PLANS.map((p) => p.key).slice().sort(),
+    );
   });
 });

@@ -73,6 +73,31 @@ export const BookingResponse = z.object({
 });
 export type BookingResponse = z.infer<typeof BookingResponse>;
 
+// ---- Checkout / membership -------------------------------------------------
+// `plan` MUST match a MEMBERSHIP_PLANS key in shared/knowledge.ts (a contract
+// test asserts they stay in sync). The client sends ONLY the plan key — never a
+// price, amount, or Stripe id — and the server resolves the env Price id.
+export const CheckoutPlan = z.enum(["tuneup", "seasonal", "comfort"]);
+export type CheckoutPlan = z.infer<typeof CheckoutPlan>;
+
+export const CheckoutRequest = z.object({
+  plan: CheckoutPlan,
+  // Optional prefill only; Stripe's hosted Checkout collects the email itself.
+  email: z.string().trim().email().max(120).optional().or(z.literal("")),
+});
+export type CheckoutRequest = z.infer<typeof CheckoutRequest>;
+
+/**
+ * Discriminated on `status`: "checkout" carries the Stripe-hosted URL the client
+ * redirects to; "fallback" means Stripe is not configured (or this plan's Price
+ * id is missing) so the UI shows a call/email-to-enroll path — never a dead button.
+ */
+export const CheckoutResponse = z.discriminatedUnion("status", [
+  z.object({ status: z.literal("checkout"), url: z.string().url() }),
+  z.object({ status: z.literal("fallback"), phone: z.string(), email: z.string() }),
+]);
+export type CheckoutResponse = z.infer<typeof CheckoutResponse>;
+
 export const ApiError = z.object({
   error: z.string(),
   fields: z.record(z.string()).optional(),
