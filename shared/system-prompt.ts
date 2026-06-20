@@ -3,7 +3,7 @@ import {
   FAQ_TIPS,
   SERVICES,
   TRIAGE_QUESTIONS,
-} from "./knowledge";
+} from "./knowledge.js";
 
 /**
  * Builds the CSR system prompt from the knowledge base. Pure function of static

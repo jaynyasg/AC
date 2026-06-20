@@ -1,5 +1,5 @@
-import { LIMITS } from "./contract";
-import { COMPANY, FORBIDDEN_DISCLOSURES, REFERRAL_SAFE_LINE } from "./knowledge";
+import { LIMITS } from "./contract.js";
+import { COMPANY, FORBIDDEN_DISCLOSURES, REFERRAL_SAFE_LINE } from "./knowledge.js";
 
 /** Shown when there is no real answer to serve (empty model output, refusal, error). */
 export const FALLBACK_REPLY =

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { BookingRequest, parse, type BookingResponse } from "../shared/contract";
-import { COMPANY } from "../shared/knowledge";
+import { BookingRequest, parse, type BookingResponse } from "../shared/contract.js";
+import { COMPANY } from "../shared/knowledge.js";
 
 // POST /api/booking — validate, then email the request via Resend if configured.
 // If no email provider is set (or sending fails), the request is still logged and

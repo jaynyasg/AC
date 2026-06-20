@@ -1,7 +1,7 @@
 import OpenAI from "openai";
-import type { ChatMessage } from "./contract";
-import { guardReply, type GuardedReply } from "./guard";
-import { SYSTEM_PROMPT } from "./system-prompt";
+import type { ChatMessage } from "./contract.js";
+import { guardReply, type GuardedReply } from "./guard.js";
+import { SYSTEM_PROMPT } from "./system-prompt.js";
 
 /**
  * The chatbot's core call path — used by BOTH `api/chat.ts` (production) and the

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { ChatResponse, parse, ChatRequest } from "../shared/contract";
-import { runChat } from "../shared/agent";
+import { ChatResponse, parse, ChatRequest } from "../shared/contract.js";
+import { runChat } from "../shared/agent.js";
 
 // POST /api/chat — validate the request at the seam, run one CSR turn, validate
 // the response, return it. The agent never throws (it degrades to a safe
