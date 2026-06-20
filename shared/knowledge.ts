@@ -106,6 +106,92 @@ export const MAINTENANCE = {
 } as const;
 
 /**
+ * Membership / plan offerings — the single source of truth for the website, the
+ * checkout endpoint, and the chatbot. This is authoritative for plan names and
+ * pricing (the `MAINTENANCE` block above stays the detailed tune-up checklist).
+ *
+ * - `price` is the DISPLAY string; the owner keeps it in sync with the Stripe
+ *   Price object whose id lives in the `priceEnv` var (display ≠ charge is an
+ *   accepted manual boundary).
+ * - `key` is the only thing the client sends to /api/checkout; the server maps it
+ *   to the env Price id (never trust a client-sent price/amount).
+ * - `mode` follows the Stripe price type: "payment" for one-time, "subscription"
+ *   for recurring.
+ * Wording avoids the FORBIDDEN_DISCLOSURES triggers (no gift/reward/bonus or
+ * referral language near a number) so bot replies quoting these never get redacted.
+ */
+export const MEMBERSHIP_PLANS = [
+  {
+    key: "tuneup",
+    name: "One-Time Tune-Up",
+    price: "$89.95",
+    cadence: "one-time",
+    mode: "payment",
+    priceEnv: "STRIPE_PRICE_TUNEUP",
+    blurb: "A single comprehensive tune-up to get your system running its best — no commitment.",
+    featured: false,
+    features: [
+      "One full multi-point system tune-up",
+      "Performance and safety inspection",
+      "Cleaning and calibration",
+    ],
+  },
+  {
+    key: "seasonal",
+    name: "Seasonal Plan",
+    price: "$159.95",
+    cadence: "year",
+    mode: "subscription",
+    priceEnv: "STRIPE_PRICE_SEASONAL",
+    blurb: "Two tune-ups a year — Spring A/C and Fall heating — with priority scheduling.",
+    featured: false,
+    features: [
+      "Two tune-ups per year (Spring A/C + Fall heating)",
+      "Priority scheduling during peak seasons",
+      "Longer, healthier equipment life",
+    ],
+  },
+  {
+    key: "comfort",
+    name: "Comfort Membership",
+    price: "$19.95",
+    cadence: "month",
+    mode: "subscription",
+    priceEnv: "STRIPE_PRICE_COMFORT",
+    blurb: "Year-round peace of mind: two visits, priority scheduling, and 20% off repairs.",
+    featured: true,
+    features: [
+      "Two tune-ups per year (Spring + Fall)",
+      "Priority scheduling during peak seasons",
+      "20% off repairs",
+    ],
+  },
+] as const;
+
+export type MembershipPlan = (typeof MEMBERSHIP_PLANS)[number];
+export type PlanKey = MembershipPlan["key"];
+
+/**
+ * Warranty facts (PRD + owner). Surfaced on the Services page and in the bot KB.
+ * Worded to avoid the FORBIDDEN_DISCLOSURES guard triggers.
+ */
+export const WARRANTIES: readonly string[] = [
+  "Every new installation includes the manufacturer's parts warranty, plus a 2-year labor warranty we provide directly to homeowners.",
+  "Depending on the equipment brand you choose, coverage typically includes up to a 10-year parts warranty — which we register with the manufacturer on your behalf.",
+];
+
+/**
+ * Owner-supplied links. Empty until provided; the UI and bot render these CTAs
+ * ONLY when non-empty, so nothing ever points to a dead URL. `googleReview` is
+ * bot-relevant (the bot may share it); `manageMembership` is the Stripe hosted
+ * Customer Portal login link (site footer only).
+ */
+export const LINKS = {
+  googleReview: "",
+  manageMembership: "",
+} as const;
+
+/**
  * Deterministic guard input (claim C6). The referral REWARD must never be
  * disclosed. These patterns are what the guard redacts if the model ever emits a
  * referral-reward amount. The bot is also told (in the system prompt) never to

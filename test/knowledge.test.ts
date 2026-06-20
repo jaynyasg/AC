@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   COMPANY,
   FORBIDDEN_DISCLOSURES,
+  LINKS,
+  MEMBERSHIP_PLANS,
   REFERRAL_SAFE_LINE,
   TRIAGE_QUESTIONS,
+  WARRANTIES,
 } from "../shared/knowledge";
 
 describe("knowledge base facts (S2, S3, S4)", () => {
@@ -38,5 +41,41 @@ describe("referral non-disclosure (S5, C6 data)", () => {
 
   it("the safe line itself discloses no amount", () => {
     expect(FORBIDDEN_DISCLOSURES.some((re) => re.test(REFERRAL_SAFE_LINE))).toBe(false);
+  });
+});
+
+describe("membership + warranty facts (U1)", () => {
+  it("has three plans with the expected keys and display prices", () => {
+    expect(MEMBERSHIP_PLANS.map((p) => p.key)).toEqual(["tuneup", "seasonal", "comfort"]);
+    const byKey = Object.fromEntries(MEMBERSHIP_PLANS.map((p) => [p.key, p]));
+    expect(byKey.tuneup.price).toBe("$89.95");
+    expect(byKey.seasonal.price).toBe("$159.95");
+    expect(byKey.comfort.price).toBe("$19.95");
+  });
+
+  it("maps each plan to a Stripe price env var with a valid mode", () => {
+    for (const p of MEMBERSHIP_PLANS) {
+      expect(p.priceEnv).toMatch(/^STRIPE_PRICE_/);
+      expect(["payment", "subscription"]).toContain(p.mode);
+    }
+    const byKey = Object.fromEntries(MEMBERSHIP_PLANS.map((p) => [p.key, p]));
+    expect(byKey.tuneup.mode).toBe("payment"); // one-time price
+    expect(byKey.seasonal.mode).toBe("subscription");
+    expect(byKey.comfort.mode).toBe("subscription");
+  });
+
+  it("defaults owner links to empty so CTAs render only when configured", () => {
+    expect(LINKS.googleReview).toBe("");
+    expect(LINKS.manageMembership).toBe("");
+  });
+
+  it("membership + warranty wording never trips the referral/reward guard", () => {
+    const strings = [
+      ...MEMBERSHIP_PLANS.flatMap((p) => [p.name, p.price, p.blurb, ...p.features]),
+      ...WARRANTIES,
+    ];
+    for (const s of strings) {
+      expect(FORBIDDEN_DISCLOSURES.some((re) => re.test(s))).toBe(false);
+    }
   });
 });
