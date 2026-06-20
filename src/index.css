@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* House-style base layer, themed cool-blue for DI Felice's HVAC. */
+@layer base {
+  html {
+    @apply bg-canvas text-ink antialiased;
+    font-feature-settings: "ss01", "cv11", "cv02";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.011em;
+  }
+  ::selection {
+    background: rgba(66, 123, 189, 0.18);
+  }
+  h1,
+  h2,
+  h3 {
+    @apply text-balance;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  /* Faint icy gradient wash used behind cool sections. */
+  .wash-cool {
+    background: linear-gradient(180deg, #f6f9fc 0%, #eaf1f8 100%);
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-fadeIn,
+  .animate-riseIn,
+  .animate-popIn {
+    animation: none !important;
+  }
+}
