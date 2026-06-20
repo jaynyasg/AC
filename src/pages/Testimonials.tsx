@@ -8,7 +8,7 @@ import { TESTIMONIALS } from "../data/testimonials";
 const reviewCta = LINKS.googleReview
   ? { href: LINKS.googleReview, label: "Leave a Google review" }
   : {
-      href: `mailto:${COMPANY.email}?subject=${encodeURIComponent("My experience with DI Felice's HVAC")}`,
+      href: `mailto:${COMPANY.email}?subject=${encodeURIComponent("My experience with Di Felice's HVAC")}`,
       label: "Share your experience",
     };
 

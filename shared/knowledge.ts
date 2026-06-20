@@ -9,7 +9,7 @@
  */
 
 export const COMPANY = {
-  name: "DI Felice's HVAC Corp.",
+  name: "Di Felice's HVAC Corp.",
   owner: "John Di Felice",
   phone: "832-726-7401",
   email: "difeliceshvac@gmail.com",

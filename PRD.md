@@ -1,10 +1,10 @@
-# DI FELICE'S HVAC CORP. — Website PRD
+# Di Felice's HVAC Corp. — Website PRD
 
 > Product Requirements Document converted from `PRD.pdf`.
 
 ## Company Overview
 
-- **Company Name:** DI FELICE'S HVAC CORP.
+- **Company Name:** Di Felice's HVAC Corp.
 - **Contact:** John Di Felice — 832-726-7401 — difeliceshvac@gmail.com
 - **License:** TACLA85527C
 - **Services:** Commercial & Residential — Installation & Repair — Licensed & Insured

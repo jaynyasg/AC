@@ -9,7 +9,7 @@ export interface UiMessage {
 export type ChatStatus = "idle" | "sending" | "error";
 
 const GREETING =
-  "Hi! You've reached DI Felice's HVAC. How can I help with your heating or cooling today?";
+  "Hi! You've reached Di Felice's HVAC. How can I help with your heating or cooling today?";
 
 /** Chat client for the CSR widget. Talks to POST /api/chat; keeps full history. */
 export function useChat() {

@@ -1,5 +1,5 @@
 ---
-title: "feat: Membership, content pages & review funnel for DI Felice's HVAC"
+title: "feat: Membership, content pages & review funnel for Di Felice's HVAC"
 type: feat
 status: completed
 date: 2026-06-20
@@ -7,7 +7,7 @@ deepened: 2026-06-20
 origin: docs/brainstorms/di-felice-website-updates-requirements.md
 ---
 
-# feat: Membership, content pages & review funnel for DI Felice's HVAC
+# feat: Membership, content pages & review funnel for Di Felice's HVAC
 
 ## Summary
 

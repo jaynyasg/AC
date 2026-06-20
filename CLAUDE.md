@@ -1,4 +1,4 @@
-# DI FELICE'S HVAC CORP. — Website + AI CSR Chatbot
+# Di Felice's HVAC Corp. — Website + AI CSR Chatbot
 
 Marketing website for a Houston-area HVAC company, plus an on-demand pop-up AI
 customer-service chatbot. Built from `PRD.md` via the `prd-compile` method
@@ -78,7 +78,7 @@ The build is complete and the offline gate is green. Three steps need YOUR crede
 
 ## Company facts (single source of truth → `shared/knowledge.ts`)
 
-DI FELICE'S HVAC CORP. · John Di Felice · 832-726-7401 · difeliceshvac@gmail.com ·
+Di Felice's HVAC Corp. · John Di Felice · 832-726-7401 · difeliceshvac@gmail.com ·
 License TACLA85527C · Commercial & Residential, Install & Repair, Licensed & Insured ·
 Brands: Generac, Lennox, Rheem, Carrier · Hours Mon–Fri 8am–5pm, Sat 9am–noon ·
 Diagnostic fee $125 (credited toward repair) · Free estimates on new systems/generators.

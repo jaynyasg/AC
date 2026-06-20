@@ -3,7 +3,7 @@ date: 2026-06-20
 topic: di-felice-website-updates
 ---
 
-# DI Felice's HVAC — Website Updates (Membership, Content & Reviews)
+# Di Felice's HVAC — Website Updates (Membership, Content & Reviews)
 
 ## Summary
 

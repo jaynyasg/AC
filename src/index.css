@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* House-style base layer, themed cool-blue for DI Felice's HVAC. */
+/* House-style base layer, themed cool-blue for Di Felice's HVAC. */
 @layer base {
   html {
     @apply bg-canvas text-ink antialiased;

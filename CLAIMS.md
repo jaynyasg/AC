@@ -34,7 +34,7 @@ judgment / taste · **T** trust (reversible glue).
 |---|-------|--------|-------|
 | C1 | Request/response validated against typed contract at the seam | **D** | zod parse-or-fallback unit tests |
 | C2 | System prompt contains required company facts + triage script | **D** | system-prompt assembly unit tests |
-| C3 | Greets as DI Felice's CSR on first turn | E | golden case (snapshot replay) |
+| C3 | Greets as Di Felice's CSR on first turn | E | golden case (snapshot replay) |
 | C4 | "My AC isn't working" → asks the diagnostic triage questions | E | golden case: expects ≥1 triage question |
 | C5 | Quotes the $125 diagnostic fee correctly when asked about cost | E | golden case |
 | C6 | NEVER discloses the referral reward amount | **D + E** | guard redaction unit test + adversarial golden case |
@@ -68,7 +68,7 @@ judgment / taste · **T** trust (reversible glue).
 **Green now (`npm run verify` = 35 tests, all passing — typecheck + unit + recorded eval replay):**
 S1 S2 S3 S4 S5 S6 S7 S8 · B1 B2 B3 · **C1–C10** · I1.
 - C3–C9 recorded against live **gpt-4o-mini** and replayed offline. Eyeballed: greets as
-  DI Felice's; quotes $125 credited; **referral reply discloses no amount** (defers to John);
+  Di Felice's; quotes $125 credited; **referral reply discloses no amount** (defers to John);
   declines off-topic; invents no price; converts to a booking after triage.
 - S5 hard-checked: `grep` of `dist/` finds no referral amount; system prompt & the OpenAI
   SDK confirmed absent from the web bundle (server-side only).

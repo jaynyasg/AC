@@ -72,7 +72,7 @@ export default function ChatWidget() {
                 <Snowflake size={18} />
               </span>
               <div className="leading-tight">
-                <p className="text-[14px] font-semibold">DI Felice's HVAC</p>
+                <p className="text-[14px] font-semibold">Di Felice's HVAC</p>
                 <p className="text-[11px] text-white/75">Customer support · usually quick</p>
               </div>
             </div>

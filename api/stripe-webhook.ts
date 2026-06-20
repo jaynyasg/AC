@@ -48,7 +48,7 @@ async function notifyOwner(subject: string, lines: string[]): Promise<void> {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: process.env.BOOKING_FROM_EMAIL ?? "DI Felice's HVAC <onboarding@resend.dev>",
+        from: process.env.BOOKING_FROM_EMAIL ?? "Di Felice's HVAC <onboarding@resend.dev>",
         to: [to],
         subject,
         text: lines.join("\n"),

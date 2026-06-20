@@ -13,7 +13,7 @@ export default function Footer() {
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-white">
               <Snowflake size={20} />
             </span>
-            <span className="text-[15px] font-semibold text-white">DI Felice's HVAC Corp.</span>
+            <span className="text-[15px] font-semibold text-white">Di Felice's HVAC Corp.</span>
           </div>
           <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed text-white/65">
             {COMPANY.tagline} Reliable AC &amp; heating for {COMPANY.area}. {COMPANY.scope}.

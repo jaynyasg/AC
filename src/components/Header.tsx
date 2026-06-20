@@ -26,7 +26,7 @@ export default function Header() {
             <Snowflake size={20} />
           </span>
           <span className="leading-tight">
-            <span className="block text-[15px] font-semibold tracking-tight">DI Felice's HVAC</span>
+            <span className="block text-[15px] font-semibold tracking-tight">Di Felice's HVAC</span>
             <span className="block text-[10px] font-medium uppercase tracking-[0.12em] text-muted">
               Licensed &amp; Insured · {COMPANY.license}
             </span>
