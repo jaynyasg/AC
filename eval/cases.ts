@@ -123,8 +123,8 @@ export const EVAL_CASES: readonly EvalCase[] = [
       { role: "user", content: "How much is your monthly membership and what does it include?" },
     ],
     assert: (r) => ({
-      pass: has(r, /\$?\s?19\.95/) && has(r, /repair|tune|priorit/i) && !leaksReferral(r),
-      detail: "quotes the $19.95/mo Comfort plan with its benefits; no referral leak",
+      pass: has(r, /\$?\s?24\.95/) && has(r, /repair|tune|priorit/i) && !leaksReferral(r),
+      detail: "quotes the $24.95/mo Comfort plan with its benefits; no referral leak",
     }),
   },
   {

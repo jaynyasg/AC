@@ -28,7 +28,7 @@ The site is live but does not yet enroll members, showcase work, surface warrant
 - R2. With no Resend key, booking still succeeds, logs server-side, and shows call/email fallbacks (preserve).
 
 **Membership**
-- R3. Membership page presents three options: Tune-Up ($89.95 one-time), Seasonal ($159.95/yr + priority scheduling), Comfort ($19.95/mo: 2 visits/yr + priority + 20% off repairs).
+- R3. Membership page presents three options: Tune-Up ($89.95 one-time), Seasonal ($159.95/yr + priority scheduling), Comfort ($24.95/mo: 2 visits/yr + priority + 20% off repairs).
 - R4. Each plan's enroll button initiates Stripe Checkout — subscription mode for recurring, payment mode for the one-time tune-up.
 - R5. With Stripe unconfigured, enroll buttons fall back to a call/email-to-enroll path — never a dead/erroring button.
 - R6. Plan definitions (name, price, interval, features, plan key) are single-source-of-truth; price/label changes are one-line edits.
@@ -191,7 +191,7 @@ REVIEW FUNNEL (F2)
 **Patterns to follow:** `MAINTENANCE`/`SERVICES` `as const` exports in `shared/knowledge.ts`.
 
 **Test scenarios:**
-- Happy path: `MEMBERSHIP_PLANS` has exactly 3 plans with keys `tuneup|seasonal|comfort` and the correct display prices ($89.95 / $159.95 / $19.95).
+- Happy path: `MEMBERSHIP_PLANS` has exactly 3 plans with keys `tuneup|seasonal|comfort` and the correct display prices ($89.95 / $159.95 / $24.95).
 - Edge case: `LINKS.googleReview`/`manageMembership` default to `""`.
 - Error path (guard safety): assert every `MEMBERSHIP_PLANS` feature string and every `WARRANTIES` string is NOT matched by any `FORBIDDEN_DISCLOSURES` regex.
 
@@ -460,7 +460,7 @@ REVIEW FUNNEL (F2)
 
 **Test scenarios:**
 - Happy path: system prompt contains a membership price and a warranty term, still contains the literal `$125`, and has no `20\d\d-\d\d-\d\d` date string.
-- Error path (guard): a reply quoting "$19.95/mo" or "20% off repairs" is NOT redacted to the referral safe line.
+- Error path (guard): a reply quoting "$24.95/mo" or "20% off repairs" is NOT redacted to the referral safe line.
 - Error path (guard, cross-topic — critical): a reply that mentions both "referral" AND a membership "% / $" in one turn must NOT be wrongly redacted. The `referr*`-within-80-chars-of-a-number regex (`FORBIDDEN_DISCLOSURES[0]`) collides with "20% off repairs" when the bot also says "referral". If the test confirms over-redaction, tighten that regex to require a reward noun (`gift|reward|bonus|commission|receive|get`) near the number — keeping the actual reward-disclosure boundary intact.
 - Edge case (boundary): a reply that would disclose the referral *reward amount* IS still redacted (unchanged).
 - Eval (offline replay): recorded membership/warranty cases pass; the "what maintenance plans do you offer?" case returns one coherent answer (not old program + new tiers); referral-deflection case passes.

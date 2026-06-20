@@ -154,7 +154,7 @@ export const MEMBERSHIP_PLANS = [
   {
     key: "comfort",
     name: "Comfort Membership",
-    price: "$19.95",
+    price: "$24.95",
     cadence: "month",
     mode: "subscription",
     priceEnv: "STRIPE_PRICE_COMFORT",

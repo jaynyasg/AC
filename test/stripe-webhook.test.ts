@@ -91,7 +91,7 @@ describe("POST /api/stripe-webhook (U4 / R18, R19)", () => {
         object: {
           metadata: { plan: "comfort" },
           customer_details: { name: "Jane Homeowner", email: "jane@example.com" },
-          amount_total: 1995,
+          amount_total: 2495,
         },
       },
     });
@@ -109,7 +109,7 @@ describe("POST /api/stripe-webhook (U4 / R18, R19)", () => {
     const sent = JSON.parse(init.body as string);
     expect(sent.subject).toContain("comfort");
     expect(sent.text).toContain("Jane Homeowner");
-    expect(sent.text).toContain("$19.95");
+    expect(sent.text).toContain("$24.95");
     expect(sent.text).not.toContain("customer_details"); // PII-scoped, not full event
   });
 

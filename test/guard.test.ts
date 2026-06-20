@@ -24,10 +24,10 @@ describe("reply guard (C6, C10)", () => {
 
   it("does not redact a membership reply that quotes plan prices (U10)", () => {
     const r = guardReply(
-      "Our Comfort Membership is $19.95/month and includes two tune-ups a year, priority scheduling, and 20% off repairs.",
+      "Our Comfort Membership is $24.95/month and includes two tune-ups a year, priority scheduling, and 20% off repairs.",
     );
     expect(r.fallback).toBe(false);
-    expect(r.reply).toContain("$19.95");
+    expect(r.reply).toContain("$24.95");
     expect(r.reply).toContain("20% off");
   });
 
