@@ -3,7 +3,20 @@ import { BEFORE_AFTER } from "../data/gallery";
 import { Scene, Shell } from "../components/Scene";
 import { usePageMeta } from "../lib/pageMeta";
 
-const MOOD = ["/assets/site/mood3.jpg", "/assets/site/mood1.jpg", "/assets/site/mood4.jpg"];
+const MOOD = [
+  {
+    src: "/media/scenes/iceland-blue-ice.jpg",
+    alt: "Glossy blue glacier ice, shown for atmosphere — not a photo of our work.",
+  },
+  {
+    src: "/media/scenes/greenland-blue-ice.jpg",
+    alt: "Blue ice in dark water, shown for atmosphere — not a photo of our work.",
+  },
+  {
+    src: "/media/scenes/blue-berg.jpg",
+    alt: "A blue iceberg, shown for atmosphere — not a photo of our work.",
+  },
+];
 
 export default function Gallery() {
   const hasWork = BEFORE_AFTER.length > 0;
@@ -19,7 +32,17 @@ export default function Gallery() {
       <Shell>
         <div className="section-head" data-reveal>
           <p className="eyebrow">Our Work</p>
-          <h2 id="gallery-title">{hasWork ? "Before & after" : "Before & after — coming soon"}</h2>
+          <h2 id="gallery-title">
+            {hasWork ? (
+              <>
+                Before <span>&amp; after</span>
+              </>
+            ) : (
+              <>
+                Before &amp; after <span>— coming soon</span>
+              </>
+            )}
+          </h2>
           <p>
             {hasWork
               ? "Real jobs from recent service calls — clean installs, careful diagnostics, and comfort built to last."
@@ -50,9 +73,9 @@ export default function Gallery() {
         ) : (
           <>
             <div className="trust-grid" data-reveal>
-              {MOOD.map((src) => (
-                <figure key={src} className="photo-frame">
-                  <img src={src} alt="Cool, comfortable air" />
+              {MOOD.map((shot) => (
+                <figure key={shot.src} className="photo-frame">
+                  <img src={shot.src} alt={shot.alt} />
                 </figure>
               ))}
             </div>

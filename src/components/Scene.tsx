@@ -14,8 +14,8 @@ export type SceneName =
 const SCENE_IMG: Record<SceneName, { src: string; position?: "from-top" | "from-bottom" }> = {
   trust: { src: "/media/scenes/bubble-ice-b.jpg" },
   services: { src: "/media/scenes/lagoon-bergs.jpg" },
-  sizing: { src: "/media/scenes/tabular-berg.jpg", position: "from-bottom" },
-  maintenance: { src: "/media/scenes/clear-ice.jpg" },
+  sizing: { src: "/media/scenes/greenland-blue-ice.jpg" },
+  maintenance: { src: "/media/scenes/iceland-blue-ice.jpg" },
   area: { src: "/media/scenes/berg-underwater.jpg" },
   reviews: { src: "/media/scenes/ice-plates.jpg" },
   tips: { src: "/media/scenes/ice-sheet.jpg", position: "from-top" },
@@ -33,18 +33,6 @@ const TONE: Record<SceneName, "scene-light" | "scene-dark"> = {
   tips: "scene-light",
   referral: "scene-dark",
   contact: "scene-light",
-};
-
-const PARTICLES: Record<SceneName, string> = {
-  trust: "has-crystals",
-  services: "has-snow",
-  sizing: "has-crystals",
-  maintenance: "has-drift",
-  area: "has-snow",
-  reviews: "has-crystals",
-  tips: "has-drift",
-  referral: "has-crystals",
-  contact: "has-drift",
 };
 
 const BAND: Record<SceneName, string> = {
@@ -120,7 +108,6 @@ export function Scene({
     BAND[name],
     "scene",
     TONE[name],
-    PARTICLES[name],
     tight ? "band-tight" : "",
     underHeader ? "under-header" : "",
     className,

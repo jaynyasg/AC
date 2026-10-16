@@ -27,7 +27,9 @@ export default function Referrals() {
       <Shell>
         <div className="section-head" data-reveal>
           <p className="eyebrow eyebrow-light">Networking &amp; referrals</p>
-          <h2 id="referral-page-title">A trusted network for homeowners</h2>
+          <h2 id="referral-page-title">
+            A trusted network <span>for homeowners</span>
+          </h2>
           <p>
             Our goal is to connect the customers we serve with other trustworthy professionals — so
             you have dependable people for the home needs outside our field of expertise.

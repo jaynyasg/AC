@@ -46,7 +46,7 @@ export default function ChatWidget() {
           <button
             type="button"
             onClick={openPanel}
-            className="animate-riseIn max-w-[15rem] rounded-card border border-line bg-paper px-4 py-3 text-left text-[13.5px] text-ink-2 shadow-pop"
+            className="chat-nudge animate-riseIn max-w-[15rem] rounded-card border border-line bg-paper px-4 py-3 text-left text-[13.5px] text-ink-2 shadow-pop"
           >
             <span className="font-medium text-ink">Need help with your AC?</span> Ask me anything —
             I'm here to help.
