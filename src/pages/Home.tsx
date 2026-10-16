@@ -12,7 +12,7 @@ const BLURBS: Record<string, string> = {
   "/maintenance":
     "Spring and fall tune-ups, membership benefits, and the tune-up, seasonal, and comfort plans.",
   "/service-area": `${COMPANY.area}. Commercial and residential, licensed ${COMPANY.license}.`,
-  "/book": "Book a repair, a tune-up, or a free estimate. We'll reach out to schedule.",
+  "/book": "Call, email, or book a repair, a tune-up, or a free estimate. We'll reach out to schedule.",
   "/faq": "Filter, drain-line, and safety habits that help a system last between visits.",
   "/gallery": "Before-and-after photos from real jobs, posted as they're collected.",
   "/testimonials": "Customer reviews are on the way. Share your experience if we've earned it.",

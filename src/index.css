@@ -1707,6 +1707,27 @@ a.teaser-card:hover {
   bottom: 1.25rem;
 }
 
+/* Compact teaser above the launcher. Out of flow so the button doesn't jump,
+   and invisible until the corner under it is clear of cards and controls. */
+.chat-nudge {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.55rem);
+  width: max-content;
+  max-width: 12.5rem;
+  margin: 0;
+  padding: 0.4rem 0.7rem;
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #04222c;
+}
+
+.chat-nudge[data-clear="false"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .chat-anchor.chat-panel {
   height: min(34rem, calc(100vh - 2.5rem));
 }

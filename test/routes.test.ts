@@ -64,6 +64,7 @@ describe("navigation destinations", () => {
       "/referrals",
     ]);
     expect(FOOTER_NAV.map((item) => item.to)).toEqual(all.map((item) => item.to));
+    expect(all.find((item) => item.to === "/book")?.label).toBe("Contact & book");
   });
 
   it("does not keep a separate membership destination", () => {
