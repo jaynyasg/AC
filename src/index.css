@@ -851,7 +851,7 @@ h1 span {
   color: #d6f4ff;
 }
 
-.service-card a {
+.service-card a:not(.btn) {
   display: inline-block;
   margin-top: 1rem;
   color: #d6f4ff;
@@ -901,7 +901,7 @@ h1 span {
   margin: 1.25rem auto 0;
 }
 
-.center a {
+.center a:not(.btn) {
   color: #0a4e66;
   font-weight: 600;
 }
@@ -939,6 +939,10 @@ h1 span {
   display: grid;
   gap: 0.55rem;
   margin-top: 0.8rem;
+}
+
+.check-list + p:not(.brands) {
+  margin-top: 0.85rem;
 }
 
 .check-list li {
@@ -1185,7 +1189,7 @@ h1 span {
   line-height: 1;
 }
 
-.big-phone a {
+.big-phone a:not(.btn) {
   color: var(--ink);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.12em;
@@ -1853,7 +1857,7 @@ a.teaser-card:hover {
 .scene h3,
 .scene .footer-name,
 .scene .big-phone,
-.scene .big-phone a,
+.scene .big-phone a:not(.btn),
 .scene .diagnostic-fee {
   color: #f7fbfe;
 }
@@ -1903,11 +1907,13 @@ a.teaser-card:hover {
   color: #c5d7e6;
 }
 
-.scene .center a,
-.scene .fine a,
-.scene .service-card a,
-.scene .soon a,
-.scene .warranty a {
+/* Section copy stays icy. Buttons keep .btn-cyan / .btn-ink — a later
+   link-color rule was painting #d6f4ff onto the cyan Call button. */
+.scene .center a:not(.btn),
+.scene .fine a:not(.btn),
+.scene .service-card a:not(.btn),
+.scene .soon a:not(.btn),
+.scene .warranty a:not(.btn) {
   color: #d6f4ff;
 }
 
@@ -1928,7 +1934,7 @@ a.teaser-card:hover {
   color: #8aedf8;
 }
 
-.scene .contact-facts a {
+.scene .contact-facts a:not(.btn) {
   color: #f7fbfe;
 }
 
@@ -2250,16 +2256,36 @@ a.teaser-card:hover {
   .site-footer.scene {
     padding-bottom: 6.5rem;
   }
+
+  /* 22px of ice on each side. The wide drop shadow was darkening the inner
+     ~9px of that gutter, so the photo read as a ~13px strip. */
+  .scene > .shell,
+  .scene-light > .shell,
+  .scene-dark > .shell,
+  .site-footer > .shell {
+    width: calc(100% - 44px);
+  }
+
+  .scene .plain-card,
+  .scene .service-card,
+  .scene .plan,
+  .scene .tuneup,
+  .scene .book-form,
+  .scene .placeholder,
+  .scene .soon,
+  .scene .diagnostic,
+  .scene a.teaser-card,
+  .scene .tips li {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 -1px 0 rgba(95, 227, 245, 0.1),
+      0 14px 22px -18px rgba(2, 10, 24, 0.55);
+  }
 }
 
 @media (max-width: 480px) {
   html {
     scroll-padding-bottom: 8.5rem;
-  }
-
-  .scene > .shell,
-  .site-footer > .shell {
-    width: calc(100% - 44px);
   }
 
   .band.scene,
