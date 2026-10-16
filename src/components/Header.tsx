@@ -1,15 +1,19 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { COMPANY } from "../../shared/knowledge";
-import { Cta } from "./Bits";
-import { Menu, Phone, Snowflake, X } from "./icons";
 
 const NAV = [
   { to: "/services", label: "Services" },
   { to: "/maintenance", label: "Maintenance" },
   { to: "/membership", label: "Membership" },
+  { to: "/#area", label: "Service area" },
+  { to: "/#contact", label: "Contact" },
+];
+
+const MORE = [
   { to: "/faq", label: "FAQ & Tips" },
   { to: "/gallery", label: "Our Work" },
+  { to: "/testimonials", label: "Testimonials" },
   { to: "/referrals", label: "Referrals" },
 ];
 
@@ -17,84 +21,83 @@ const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.classList.toggle("nav-lock", open);
+    return () => document.body.classList.remove("nav-lock");
+  }, [open]);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const desktop = window.matchMedia("(min-width: 900px)");
+    const onChange = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    desktop.addEventListener?.("change", onChange);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      desktop.removeEventListener?.("change", onChange);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur">
-      <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-500 text-white shadow-card">
-            <Snowflake size={20} />
+    <header className={`site-header${open ? " is-open" : ""}`}>
+      <div className="shell header-bar">
+        <Link className="brand" to="/" onClick={() => setOpen(false)}>
+          <span className="brand-mark" aria-hidden="true">
+            DF
           </span>
-          <span className="leading-tight">
-            <span className="block text-[15px] font-semibold tracking-tight">Di Felice's HVAC</span>
-            <span className="block text-[10px] font-medium uppercase tracking-[0.12em] text-muted">
-              Licensed &amp; Insured · {COMPANY.license}
-            </span>
+          <span className="brand-text">
+            <span className="brand-name">Di Felice's HVAC</span>
+            <span className="brand-meta">Licensed &amp; insured · {COMPANY.license}</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {NAV.map((n) => (
-            <NavLink
-              key={n.to}
-              to={n.to}
-              className={({ isActive }) =>
-                "rounded-pill px-3 py-2 text-[13.5px] font-medium transition " +
-                (isActive ? "bg-surface text-ink" : "text-muted hover:text-ink")
-              }
-            >
-              {n.label}
+        <button
+          className="nav-toggle"
+          type="button"
+          aria-expanded={open}
+          aria-controls="site-nav"
+          onClick={() => setOpen((value) => !value)}
+        >
+          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+          <span className="nav-toggle-bars" aria-hidden="true" />
+        </button>
+
+        <nav id="site-nav" className={`site-nav${open ? " is-open" : ""}`} aria-label="Primary">
+          {NAV.map((item) =>
+            item.to.startsWith("/#") ? (
+              <Link key={item.to} to={item.to} onClick={() => setOpen(false)}>
+                {item.label}
+              </Link>
+            ) : (
+              <NavLink key={item.to} to={item.to} onClick={() => setOpen(false)}>
+                {item.label}
+              </NavLink>
+            ),
+          )}
+          {MORE.map((item) => (
+            <NavLink key={item.to} to={item.to} className="nav-more" onClick={() => setOpen(false)}>
+              {item.label}
             </NavLink>
           ))}
+          <a className="nav-call" href={telHref}>
+            Call {COMPANY.phone}
+          </a>
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Cta href={telHref} variant="ghost">
-            <Phone size={16} /> {COMPANY.phone}
-          </Cta>
-          <Cta to="/book" variant="primary">
-            Book / Free Estimate
-          </Cta>
-        </div>
-
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="grid h-10 w-10 place-items-center rounded-lg border border-line bg-paper text-ink lg:hidden"
-        >
-          {open ? <X /> : <Menu />}
-        </button>
+        <a className="btn btn-cyan header-cta" href={telHref}>
+          Call now
+        </a>
       </div>
-
-      {open && (
-        <div className="animate-fadeIn border-t border-line bg-canvas lg:hidden">
-          <nav className="container-page flex flex-col py-3">
-            {NAV.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  "rounded-lg px-3 py-2.5 text-[15px] font-medium " +
-                  (isActive ? "bg-surface text-ink" : "text-ink-2")
-                }
-              >
-                {n.label}
-              </NavLink>
-            ))}
-            <div className="mt-3 flex flex-col gap-2">
-              <Cta href={telHref} variant="ghost">
-                <Phone size={16} /> Call {COMPANY.phone}
-              </Cta>
-              <Cta to="/book" variant="primary" className="w-full" >
-                Book / Free Estimate
-              </Cta>
-            </div>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

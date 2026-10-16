@@ -1,0 +1,17 @@
+# Image credits
+
+Section photographs on the site are self-hosted copies from Wikimedia Commons. CC BY and CC BY-SA files require credit, a link to the license, and a note that the copy here was resized. Each file was opened and checked before it was used: glossy ice, glacier, snow, or frost, with no trees, grass, sandy beaches, cities, or objects.
+
+On screens 480px and narrower, each section uses a tighter crop of the same photograph (`public/media/scenes/mobile/`) so the ice sits in the band around the card. Desktop uses the full frame.
+
+- **Hero video and poster still:** “Aerial view of arctic glacier ice floes” by Mixkit, [mixkit.co/free-stock-video/aerial-view-of-arctic-glacier-ice-floes-48402](https://mixkit.co/free-stock-video/aerial-view-of-arctic-glacier-ice-floes-48402/). Covered by the [Mixkit Stock Video Free License](https://mixkit.co/license/#videoFree). The poster is a still from that clip, used when the video cannot play or when reduced motion is requested.
+- **Technician photograph:** Unsplash photo `photo-1621905251918-48416bd8575a` ([images.unsplash.com](https://images.unsplash.com/photo-1621905251918-48416bd8575a)), under the [Unsplash License](https://unsplash.com/license). It is atmosphere only and is captioned as such — it is not a photo of this company’s crew.
+- **Trust** — air bubbles in dark ice, by Ezzex, [Air bubbles in ice (04)](https://commons.wikimedia.org/wiki/File:Air_bubbles_in_ice_(04).JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- **Services and footer** — icebergs in a calm lagoon, by Debivort, [Blocks of ice in Jökulsárlón, with Öræfi](https://commons.wikimedia.org/wiki/File:Blocks_of_ice_in_J%C3%B6kuls%C3%A1rl%C3%B3n,_with_%C3%96r%C3%A6fi.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The footer is cropped lower so the calm water and ice fill the band.
+- **Sizing** — a tabular iceberg in deep blue water, by NASA ICE, [Tabular iceberg](https://commons.wikimedia.org/wiki/File:Tabular_iceberg_(31046931536).jpg), public domain.
+- **Maintenance** — clear glassy ice, by Kim Hansen, [Black ice growler texture](https://commons.wikimedia.org/wiki/File:Black_ice_growler_texture_upernavik_2007-07-07.jpg), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- **Service area** — an iceberg and its turquoise underside in dark water, by AWeith, [Iceberg in the Arctic with its underside exposed](https://commons.wikimedia.org/wiki/File:Iceberg_in_the_Arctic_with_its_underside_exposed.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- **Contact** — icebergs in a turquoise cove, by Brocken Inaglory, [Icebergs at Cape York](https://commons.wikimedia.org/wiki/File:Icebergs_at_cape_york_2.JPG), [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+- **Reviews** — rounded sea-ice plates, by Denis Luyten, [Sea ice, Snow Hill Island](https://commons.wikimedia.org/wiki/File:2007_Snow-Hill-Island_Luyten-De-Hauwere-Sea-Ice-08.jpg), public domain.
+- **Tips** — a smooth snow-and-ice sheet meeting dark water, by Chris Larsen, NASA Operation IceBridge, [McMurdo Iceberg](https://commons.wikimedia.org/wiki/File:McMurdo_Iceberg_NASA.jpg), public domain.
+- **Referral** — one glossy blue iceberg, by Smiley.toerist, [Blue ice floe near Spitsbergen](https://commons.wikimedia.org/wiki/File:Blaauw_ijs_ijsschots_bij_Spitsbergen.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
