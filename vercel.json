@@ -1,5 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
+  "redirects": [
+    { "source": "/membership", "destination": "/maintenance", "permanent": false },
+    { "source": "/membership/", "destination": "/maintenance", "permanent": false }
+  ],
   "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
 }

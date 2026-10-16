@@ -1,18 +1,8 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { COMPANY, LINKS } from "../../shared/knowledge";
+import { FOOTER_NAV } from "../site-nav";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
-
-const EXPLORE = [
-  { to: "/services", label: "Services" },
-  { to: "/maintenance", label: "Maintenance Program" },
-  { to: "/membership", label: "Membership & Plans" },
-  { to: "/faq", label: "FAQ & Homeowner Tips" },
-  { to: "/testimonials", label: "Testimonials" },
-  { to: "/gallery", label: "Our Work" },
-  { to: "/referrals", label: "Referrals" },
-  { to: "/book", label: "Book / Free Estimate" },
-];
 
 export default function Footer() {
   return (
@@ -57,9 +47,11 @@ export default function Footer() {
         </div>
         <div>
           <p className="footer-label">Explore</p>
-          {EXPLORE.map((item) => (
+          {FOOTER_NAV.map((item) => (
             <p key={item.to}>
-              <Link to={item.to}>{item.label}</Link>
+              <NavLink to={item.to} end>
+                {item.label}
+              </NavLink>
             </p>
           ))}
         </div>

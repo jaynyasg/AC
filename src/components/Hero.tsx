@@ -89,7 +89,7 @@ export default function Hero() {
           <a className="btn btn-cyan" href={telHref}>
             Call now
           </a>
-          <Link className="btn btn-ghost" to="/#contact">
+          <Link className="btn btn-ghost" to="/book">
             Book service
           </Link>
         </div>

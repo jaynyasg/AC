@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Stripe from "stripe";
 import { CheckoutRequest, parse, type CheckoutResponse } from "../shared/contract.js";
 import { COMPANY, MEMBERSHIP_PLANS } from "../shared/knowledge.js";
+import { checkoutReturnUrl } from "../shared/routes.js";
 
 /**
  * POST /api/checkout — create a Stripe Checkout Session for a membership plan.
@@ -97,8 +98,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     const session = await stripe.checkout.sessions.create({
       mode: planDef.mode,
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${base}/membership?status=success`,
-      cancel_url: `${base}/membership?status=cancel`,
+      success_url: checkoutReturnUrl(base, "success"),
+      cancel_url: checkoutReturnUrl(base, "cancel"),
       metadata: { plan },
       ...(email ? { customer_email: email } : {}),
     });

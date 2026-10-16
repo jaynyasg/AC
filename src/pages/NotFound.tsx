@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { Scene, Shell } from "../components/Scene";
+import { usePageMeta } from "../lib/pageMeta";
 
 export default function NotFound() {
+  usePageMeta(
+    "Page not found — Di Felice's HVAC",
+    "That page isn't on the Di Felice's HVAC site. Head home or book a visit in Houston, TX.",
+  );
   return (
     <Scene name="sizing" labelledBy="missing-title" underHeader>
       <Shell>

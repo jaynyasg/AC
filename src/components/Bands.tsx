@@ -1,17 +1,17 @@
-import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { useState, type ReactNode } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   COMPANY,
   FAQ_TIPS,
   LINKS,
   MAINTENANCE,
   MEMBERSHIP_PLANS,
-  SERVICES,
   WARRANTIES,
   type MembershipPlan,
 } from "../../shared/knowledge";
 import { BEFORE_AFTER } from "../data/gallery";
 import { TESTIMONIALS } from "../data/testimonials";
+import { enrollIntent } from "../lib/enroll";
 import BookingForm from "./BookingForm";
 import { Scene, Shell, revealDelay } from "./Scene";
 
@@ -80,68 +80,6 @@ export function TrustBand({ underHeader = false }: { underHeader?: boolean }) {
               comfort.
             </p>
           </article>
-        </div>
-      </Shell>
-    </Scene>
-  );
-}
-
-export function ServicesBand() {
-  return (
-    <Scene name="services" id="services" labelledBy="services-title">
-      <Shell>
-        <div className="section-head" data-reveal>
-          <p className="eyebrow eyebrow-light">What we do</p>
-          <h2 id="services-title">Repairs, tune-ups, and honest estimates</h2>
-          <p>{SERVICES.diagnostic}</p>
-        </div>
-        <div className="service-grid">
-          <article className="service-card" data-reveal style={revealDelay(0)}>
-            <Icon brass>
-              <path d="M14.7 6.3a4 4 0 0 0-5 5L3 18l3 3 6.7-6.7a4 4 0 0 0 5-5l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6z" />
-            </Icon>
-            <h3>Repairs &amp; installs</h3>
-            <p>Not cooling or acting up? We get to the root of the problem fast.</p>
-            <Link to="/#contact">Book a repair</Link>
-          </article>
-          <article className="service-card" data-reveal style={revealDelay(80)}>
-            <Icon brass>
-              <path d="M4 20c10 2 16-4 16-14 0 0-12-2-15 5-1.6 3.8 1 7 1 7M4 20s2-6 8-9" />
-            </Icon>
-            <h3>Maintenance program</h3>
-            <p>Bi-yearly spring &amp; fall tune-ups that prevent costly breakdowns.</p>
-            <Link to="/#maintenance">See the plans</Link>
-          </article>
-          <article className="service-card" data-reveal style={revealDelay(160)}>
-            <Icon brass>
-              <path d="M6 3h9l3 3v15H6z" />
-              <path d="M9 12h6M9 16h6M15 3v3h3" />
-            </Icon>
-            <h3>Free estimates</h3>
-            <p>Considering a new system or generator? Estimates are free.</p>
-            <Link to="/#contact">Request an estimate</Link>
-          </article>
-        </div>
-        <div className="diagnostic" data-reveal>
-          <p className="diagnostic-fee">
-            <span>${COMPANY.diagnosticFee}</span> diagnostic visit
-          </p>
-          <div>
-            <p>
-              Our initial diagnostic fee to show up and pinpoint your AC issue is{" "}
-              <strong>${COMPANY.diagnosticFee}</strong>. Consider it an investment toward the parts
-              and labor to fix your issue — the ${COMPANY.diagnosticFee} is credited toward the
-              repair. If the repair costs more than you can manage at that moment, the fee can still
-              be applied to fixing your issue right away or at a later time.
-            </p>
-            <p className="fine">
-              Financing options may also be available for you to take advantage of in certain
-              circumstances.
-            </p>
-            <a className="btn btn-cyan" href={telHref}>
-              Call {COMPANY.phone}
-            </a>
-          </div>
         </div>
       </Shell>
     </Scene>
@@ -231,25 +169,79 @@ export function SizingBand({
   );
 }
 
-export function MaintenanceBand({
-  underHeader = false,
-  pitch = false,
-}: {
-  underHeader?: boolean;
-  pitch?: boolean;
-}) {
+export function MaintenanceBand({ underHeader = false }: { underHeader?: boolean }) {
+  const [params] = useSearchParams();
+  const status = params.get("status");
+  const [pending, setPending] = useState<string | null>(null);
+  const [fallbacks, setFallbacks] = useState<Record<string, { phone: string; email: string }>>({});
+
+  async function enroll(plan: MembershipPlan) {
+    setPending(plan.key);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: plan.key }),
+      });
+      const intent = enrollIntent(await res.json().catch(() => null), {
+        phone: COMPANY.phone,
+        email: COMPANY.email,
+      });
+      if (intent.kind === "redirect") {
+        window.location.href = intent.url;
+        return;
+      }
+      setFallbacks((current) => ({
+        ...current,
+        [plan.key]: { phone: intent.phone, email: intent.email },
+      }));
+    } catch (err) {
+      console.error("[checkout] request failed:", err);
+      setFallbacks((current) => ({
+        ...current,
+        [plan.key]: { phone: COMPANY.phone, email: COMPANY.email },
+      }));
+    } finally {
+      setPending(null);
+    }
+  }
+
   return (
     <Scene name="maintenance" id="maintenance" labelledBy="maint-title" underHeader={underHeader}>
       <Shell>
         <div className="section-head" data-reveal>
           <p className="eyebrow">Bi-yearly maintenance program</p>
-          <h2 id="maint-title">Get ahead of problems — before they become hardships</h2>
+          <h2 id="maint-title">Maintenance &amp; Membership</h2>
           <p>
-            In spring and fall we have the proper time to address issues before they worsen or damage
-            critical equipment. Just like a car, your HVAC system needs regular tune-ups to perform at
-            its best.
+            Get ahead of problems — before they become hardships. In spring and fall we have the
+            proper time to address issues before they worsen or damage critical equipment. Just like a
+            car, your HVAC system needs regular tune-ups to perform at its best.
           </p>
         </div>
+        {status === "success" && (
+          <article className="plain-card" data-reveal style={{ marginBottom: "1rem" }}>
+            <h3>You're enrolled — welcome to the family!</h3>
+            <p>
+              {COMPANY.owner} will be in touch to confirm your first visit. Thank you for trusting us
+              with your comfort.
+            </p>
+            {LINKS.googleReview && (
+              <p>
+                <a className="btn btn-ink" href={LINKS.googleReview}>
+                  Leave us a Google review
+                </a>
+              </p>
+            )}
+          </article>
+        )}
+        {status === "cancel" && (
+          <article className="plain-card" data-reveal style={{ marginBottom: "1rem" }}>
+            <p>
+              No worries — you can enroll anytime. Not sure which plan fits? Call{" "}
+              <a href={telHref}>{COMPANY.phone}</a> and we'll help you choose.
+            </p>
+          </article>
+        )}
         <ul className="chip-list" data-reveal>
           {MAINTENANCE.benefits.map((benefit) => (
             <li key={benefit}>{benefit}</li>
@@ -278,38 +270,64 @@ export function MaintenanceBand({
           </details>
         </div>
         <div className="plan-grid">
-          {MEMBERSHIP_PLANS.map((plan, i) => (
-            <article
-              key={plan.key}
-              className={plan.featured ? "plan plan-featured" : "plan"}
-              data-reveal
-              style={revealDelay(i * 80)}
-            >
-              {plan.featured && <p className="plan-flag">Featured</p>}
-              <h3>{plan.name}</h3>
-              <p className="price">
-                {plan.price} <span>{cadenceLabel[plan.cadence]}</span>
-              </p>
-              <p>{plan.blurb}</p>
-              <ul>
-                {plan.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          {MEMBERSHIP_PLANS.map((plan, i) => {
+            const fallback = fallbacks[plan.key];
+            return (
+              <article
+                key={plan.key}
+                className={plan.featured ? "plan plan-featured" : "plan"}
+                data-reveal
+                style={revealDelay(i * 80)}
+              >
+                {plan.featured && <p className="plan-flag">Featured</p>}
+                <h3>{plan.name}</h3>
+                <p className="price">
+                  {plan.price} <span>{cadenceLabel[plan.cadence]}</span>
+                </p>
+                <p>{plan.blurb}</p>
+                <ul>
+                  {plan.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <p>
+                  {fallback ? (
+                    <>
+                      Call or email to enroll:{" "}
+                      <a className="btn btn-cyan" href={`tel:${fallback.phone.replace(/\D/g, "")}`}>
+                        {fallback.phone}
+                      </a>{" "}
+                      <a
+                        className="btn btn-ink"
+                        href={`mailto:${fallback.email}?subject=${encodeURIComponent(`Enroll — ${plan.name}`)}`}
+                      >
+                        Email us
+                      </a>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      className={plan.featured ? "btn btn-cyan" : "btn btn-ink"}
+                      onClick={() => enroll(plan)}
+                      disabled={pending === plan.key}
+                    >
+                      {pending === plan.key ? "Opening checkout…" : "Enroll now"}
+                    </button>
+                  )}
+                </p>
+              </article>
+            );
+          })}
         </div>
         <p className="fine center" data-reveal>
           The ${COMPANY.diagnosticFee} diagnostic fee is separate and applies to repair visits.
-          Membership is billed securely through Stripe and you can cancel anytime.{" "}
-          <Link to="/membership">Enroll in a plan</Link>
+          Membership is billed securely through Stripe and you can cancel anytime.
           {LINKS.manageMembership && (
             <>
               {" "}
-              · <a href={LINKS.manageMembership}>Manage my membership</a>
+              <a href={LINKS.manageMembership}>Manage my membership</a>.
             </>
           )}
-          .
         </p>
         <div className="warranty" data-reveal>
           <h3>Warranties that protect your investment</h3>
@@ -324,37 +342,38 @@ export function MaintenanceBand({
           </ul>
           <p className="brands">Brands we work with: {COMPANY.brands.join(", ")}.</p>
         </div>
-        {pitch && (
-          <div className="warranty" data-reveal>
-            <h3>Membership benefits</h3>
-            <p>Our company takes pride in giving the best service to our loyal patrons. As a member, you can expect:</p>
-            <ul className="check-list">
-              {MAINTENANCE.memberBenefits.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p>
-              Schedule your maintenance check-up today. For multiple units at your residence or
-              business, we discount our rate for each additional unit.
-            </p>
-            <p>
-              <Link className="btn btn-ink" to="/book">
-                Sign up for maintenance
-              </Link>{" "}
-              <a className="btn btn-cyan" href={telHref}>
-                Call {COMPANY.phone}
-              </a>
-            </p>
-          </div>
-        )}
+        <div className="warranty" data-reveal>
+          <h3>Membership benefits</h3>
+          <p>
+            Our company takes pride in giving the best service to our loyal patrons. As a member, you
+            can expect:
+          </p>
+          <ul className="check-list">
+            {MAINTENANCE.memberBenefits.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p>
+            Schedule your maintenance check-up today. For multiple units at your residence or
+            business, we discount our rate for each additional unit.
+          </p>
+          <p>
+            <Link className="btn btn-ink" to="/book">
+              Sign up for maintenance
+            </Link>{" "}
+            <a className="btn btn-cyan" href={telHref}>
+              Call {COMPANY.phone}
+            </a>
+          </p>
+        </div>
       </Shell>
     </Scene>
   );
 }
 
-export function AreaBand() {
+export function AreaBand({ underHeader = false }: { underHeader?: boolean }) {
   return (
-    <Scene name="area" id="area" labelledBy="area-title">
+    <Scene name="area" id="area" labelledBy="area-title" underHeader={underHeader}>
       <Shell className="area-layout">
         <div data-reveal>
           <p className="eyebrow eyebrow-light">Service area</p>
@@ -478,27 +497,6 @@ export function TipsBand({
           </p>
         )}
       </Shell>
-    </Scene>
-  );
-}
-
-export function ReferralBand({ underHeader = false }: { underHeader?: boolean }) {
-  return (
-    <Scene name="referral" labelledBy="referral-title" underHeader={underHeader}>
-      <div className="shell referral-inner" data-reveal>
-        <div>
-          <p className="eyebrow eyebrow-light">Referrals</p>
-          <h2 id="referral-title">Refer a new customer</h2>
-        </div>
-        <p>
-          Know someone who needs heating or cooling help? When you refer a new client to us, we'll
-          extend a gift of appreciation for the business they bring our way. {COMPANY.owner} shares the
-          details of that thank-you personally — just reach out and we'll fill you in.
-        </p>
-        <a className="btn btn-ghost" href={telHref}>
-          Call {COMPANY.phone}
-        </a>
-      </div>
     </Scene>
   );
 }

@@ -2,10 +2,15 @@ import { Link } from "react-router-dom";
 import { COMPANY, SERVICES } from "../../shared/knowledge";
 import { SizingBand } from "../components/Bands";
 import { Scene, Shell, revealDelay } from "../components/Scene";
+import { usePageMeta } from "../lib/pageMeta";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
 export default function Services() {
+  usePageMeta(
+    "Services — Di Felice's HVAC",
+    `AC and heating repairs, installs, and a $${COMPANY.diagnosticFee} diagnostic visit credited toward the repair. Free estimates on new systems and generators in ${COMPANY.area}.`,
+  );
   return (
     <>
       <Scene name="services" id="services" labelledBy="services-page-title" underHeader>

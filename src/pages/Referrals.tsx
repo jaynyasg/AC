@@ -1,6 +1,7 @@
 import { COMPANY } from "../../shared/knowledge";
 import { PARTNERS, type Partner } from "../data/partners";
 import { Scene, Shell, revealDelay } from "../components/Scene";
+import { usePageMeta } from "../lib/pageMeta";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
@@ -16,6 +17,10 @@ function groupByCategory(partners: readonly Partner[]): [string, Partner[]][] {
 
 export default function Referrals() {
   const groups = groupByCategory(PARTNERS);
+  usePageMeta(
+    "Referrals — Di Felice's HVAC",
+    `Refer a customer to ${COMPANY.name}, or ask ${COMPANY.owner} for a trusted professional outside heating and cooling. Details are shared personally. Call ${COMPANY.phone}.`,
+  );
 
   return (
     <Scene name="referral" labelledBy="referral-page-title" underHeader>

@@ -1,10 +1,18 @@
+import { COMPANY } from "../../shared/knowledge";
 import { BEFORE_AFTER } from "../data/gallery";
 import { Scene, Shell } from "../components/Scene";
+import { usePageMeta } from "../lib/pageMeta";
 
 const MOOD = ["/assets/site/mood3.jpg", "/assets/site/mood1.jpg", "/assets/site/mood4.jpg"];
 
 export default function Gallery() {
   const hasWork = BEFORE_AFTER.length > 0;
+  usePageMeta(
+    "Gallery — Di Felice's HVAC",
+    hasWork
+      ? `Before-and-after photos from ${COMPANY.name} jobs in ${COMPANY.area}.`
+      : `Before-and-after photos from ${COMPANY.name} will be posted as they're collected. ${COMPANY.area}.`,
+  );
 
   return (
     <Scene name="reviews" labelledBy="gallery-title" underHeader>
