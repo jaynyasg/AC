@@ -7,7 +7,7 @@ export const PRIMARY_NAV: readonly NavItem[] = [
   { to: "/services", label: "Services" },
   { to: "/maintenance", label: "Maintenance & Membership" },
   { to: "/service-area", label: "Service area" },
-  { to: "/book", label: "Contact" },
+  { to: "/book", label: "Contact & book" },
 ];
 
 /** Phone menu and footer. Each one is its own page. */

@@ -6,20 +6,95 @@ import { Chat, Send, Snowflake, X } from "./icons";
 
 const SUGGESTIONS = ["My AC isn't cooling", "Book a tune-up", "What's the diagnostic fee?"];
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
+const NUDGE_KEY = "hvac-chat-nudged";
+
+function nudgeDismissed(): boolean {
+  try {
+    return sessionStorage.getItem(NUDGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function rememberNudge() {
+  try {
+    sessionStorage.setItem(NUDGE_KEY, "1");
+  } catch {
+    /* Private mode can reject sessionStorage. The bubble still closes. */
+  }
+}
+
+/** True when the bubble would cover a card, link, or control. */
+function nudgeCoversContent(el: HTMLElement): boolean {
+  const rect = el.getBoundingClientRect();
+  if (rect.width < 2 || rect.height < 2) return true;
+  const xs = [rect.left + 4, rect.left + rect.width / 2, rect.right - 4];
+  const ys = [rect.top + 4, rect.top + rect.height / 2, rect.bottom - 4];
+  const samples = ys.flatMap((y) => xs.map((x) => [x, y]));
+  const blocker =
+    "a, button, input, select, textarea, summary, label, h1, h2, h3, p, li, .plain-card, .service-card, .plan, .tuneup, .teaser-card, .book-form, .btn, .diagnostic";
+  for (const [x, y] of samples) {
+    if (x < 0 || y < 0 || x > window.innerWidth || y > window.innerHeight) return true;
+    for (const node of document.elementsFromPoint(x, y)) {
+      if (el.contains(node) || node.closest(".chat-anchor, .dock, .site-header")) continue;
+      if (node.closest(blocker)) return true;
+    }
+  }
+  return false;
+}
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
-  const [nudge, setNudge] = useState(false);
+  const [retired, setRetired] = useState(nudgeDismissed);
+  const [nudgeClear, setNudgeClear] = useState(false);
   const [draft, setDraft] = useState("");
   const { messages, status, send, retryFromError } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const nudgeRef = useRef<HTMLButtonElement>(null);
 
-  // Proactive nudge: appear once after a few seconds if the panel is still closed.
+  // Show the teaser only while the corner under it is empty, then retire it
+  // for the session so it cannot sit on card text or buttons.
   useEffect(() => {
-    if (open || sessionStorage.getItem("hvac-chat-nudged")) return;
-    const t = setTimeout(() => setNudge(true), 6000);
-    return () => clearTimeout(t);
-  }, [open]);
+    if (open || retired) return;
+    let stop = false;
+    let frame = 0;
+    let lifetime = 0;
+    const shown = { current: false };
+
+    const place = () => {
+      const el = nudgeRef.current;
+      if (!el || stop) return;
+      const clear = !nudgeCoversContent(el);
+      setNudgeClear(clear);
+      if (clear && !shown.current) {
+        shown.current = true;
+        lifetime = window.setTimeout(() => {
+          rememberNudge();
+          setRetired(true);
+        }, 6000);
+      }
+    };
+
+    const onMove = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(place);
+    };
+
+    const start = window.setTimeout(() => {
+      place();
+      window.addEventListener("scroll", onMove, { passive: true, capture: true });
+      window.addEventListener("resize", onMove);
+    }, 1200);
+
+    return () => {
+      stop = true;
+      window.clearTimeout(start);
+      window.clearTimeout(lifetime);
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onMove, true);
+      window.removeEventListener("resize", onMove);
+    };
+  }, [open, retired]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -27,8 +102,8 @@ export default function ChatWidget() {
 
   function openPanel() {
     setOpen(true);
-    setNudge(false);
-    sessionStorage.setItem("hvac-chat-nudged", "1");
+    setRetired(true);
+    rememberNudge();
   }
 
   function submit(text: string) {
@@ -42,14 +117,17 @@ export default function ChatWidget() {
     <>
       {/* Launcher */}
       <div className="chat-anchor fixed right-5 z-50 flex flex-col items-end gap-3">
-        {nudge && !open && (
+        {!open && !retired && (
           <button
+            ref={nudgeRef}
             type="button"
+            data-clear={nudgeClear ? "true" : "false"}
+            aria-hidden={nudgeClear ? undefined : true}
+            tabIndex={nudgeClear ? 0 : -1}
             onClick={openPanel}
-            className="chat-nudge animate-riseIn max-w-[15rem] rounded-card border border-line bg-paper px-4 py-3 text-left text-[13.5px] text-ink-2 shadow-pop"
+            className="chat-nudge animate-riseIn rounded-card border border-line bg-paper text-left shadow-pop"
           >
-            <span className="font-medium text-ink">Need help with your AC?</span> Ask me anything —
-            I'm here to help.
+            Need help with your AC?
           </button>
         )}
         {!open && (
