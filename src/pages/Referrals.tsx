@@ -1,119 +1,109 @@
 import { COMPANY } from "../../shared/knowledge";
-import { Card, Cta, Eyebrow, Section, SectionHeading } from "../components/Bits";
-import { Phone } from "../components/icons";
 import { PARTNERS, type Partner } from "../data/partners";
+import { Scene, Shell, revealDelay } from "../components/Scene";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
 function groupByCategory(partners: readonly Partner[]): [string, Partner[]][] {
   const map = new Map<string, Partner[]>();
-  for (const p of partners) {
-    const list = map.get(p.category) ?? [];
-    list.push(p);
-    map.set(p.category, list);
+  for (const partner of partners) {
+    const list = map.get(partner.category) ?? [];
+    list.push(partner);
+    map.set(partner.category, list);
   }
   return [...map.entries()];
 }
 
 export default function Referrals() {
   const groups = groupByCategory(PARTNERS);
-  const hasPartners = groups.length > 0;
 
   return (
-    <>
-      <Section wash className="border-b border-line">
-        <Eyebrow>Networking &amp; Referrals</Eyebrow>
-        <SectionHeading
-          title="A trusted network for homeowners"
-          lead="Our goal is to connect the customers we serve with other trustworthy professionals — so you have dependable people for the home needs outside our field of expertise."
-        />
-      </Section>
+    <Scene name="referral" labelledBy="referral-page-title" underHeader>
+      <Shell>
+        <div className="section-head" data-reveal>
+          <p className="eyebrow eyebrow-light">Networking &amp; referrals</p>
+          <h2 id="referral-page-title">A trusted network for homeowners</h2>
+          <p>
+            Our goal is to connect the customers we serve with other trustworthy professionals — so
+            you have dependable people for the home needs outside our field of expertise.
+          </p>
+        </div>
 
-      <Section>
-        {hasPartners ? (
-          <div className="space-y-10">
-            {groups.map(([category, list]) => (
-              <div key={category}>
-                <h3 className="mb-4 text-[12px] font-semibold uppercase tracking-[0.12em] text-brand-600">
-                  {category}
-                </h3>
-                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {list.map((p) => (
-                    <Card key={p.name}>
-                      <h4 className="text-[15px] font-semibold">{p.name}</h4>
-                      {p.blurb && (
-                        <p className="mt-2 text-[14px] leading-relaxed text-muted">{p.blurb}</p>
+        {groups.length > 0 ? (
+          groups.map(([category, list]) => (
+            <div key={category} style={{ marginBottom: "1.25rem" }}>
+              <h3 className="subhead">{category}</h3>
+              <div className="trust-grid">
+                {list.map((partner) => (
+                  <article key={partner.name} className="plain-card" data-reveal>
+                    <h3>{partner.name}</h3>
+                    {partner.blurb && <p>{partner.blurb}</p>}
+                    <p>
+                      {partner.phone && (
+                        <a className="btn btn-ink" href={`tel:${partner.phone.replace(/\D/g, "")}`}>
+                          {partner.phone}
+                        </a>
+                      )}{" "}
+                      {partner.url && (
+                        <a className="btn btn-cyan" href={partner.url}>
+                          Visit site
+                        </a>
                       )}
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {p.phone && (
-                          <Cta href={`tel:${p.phone.replace(/\D/g, "")}`} variant="ghost">
-                            <Phone size={16} /> {p.phone}
-                          </Cta>
-                        )}
-                        {p.url && (
-                          <Cta href={p.url} variant="ghost">
-                            Visit site
-                          </Cta>
-                        )}
-                      </div>
-                    </Card>
-                  ))}
-                </div>
+                    </p>
+                  </article>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))
         ) : (
-          <Card>
-            <h3 className="text-[17px] font-semibold">Need a trusted pro outside of AC?</h3>
-            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-2">
+          <article className="plain-card" data-reveal>
+            <h3>Need a trusted pro outside of AC?</h3>
+            <p>
               We're putting together a list of dependable people we trust for home services beyond
               heating and cooling — realtors, plumbing, electrical, foundation, remodeling,
               landscaping, and more. While we finish building it out, just ask and we'll point you to
               someone we'd use ourselves.
             </p>
-            <div className="mt-5">
-              <Cta href={telHref} variant="primary">
-                <Phone size={16} /> Call {COMPANY.phone}
-              </Cta>
-            </div>
-          </Card>
+            <p>
+              <a className="btn btn-ink" href={telHref}>
+                Call {COMPANY.phone}
+              </a>
+            </p>
+          </article>
         )}
-      </Section>
 
-      <Section wash>
-        <div className="grid gap-6 lg:grid-cols-2">
-          <Card>
-            <h3 className="text-[17px] font-semibold">Are you a home-services pro?</h3>
-            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-2">
+        <div className="trust-grid" style={{ marginTop: "1rem" }}>
+          <article className="plain-card" data-reveal style={revealDelay(0)}>
+            <h3>Are you a home-services pro?</h3>
+            <p>
               We're building a network of dependable providers — plumbing, electrical, roofing,
               landscaping, and more — who share our standards for honest, quality work. If that's you,
               let's talk about taking care of each other's customers.
             </p>
-            <div className="mt-5">
-              <Cta href={`mailto:${COMPANY.email}?subject=Partner network inquiry`} variant="primary">
+            <p>
+              <a className="btn btn-ink" href={`mailto:${COMPANY.email}?subject=Partner network inquiry`}>
                 Get in touch
-              </Cta>
-            </div>
-          </Card>
-
-          <Card>
-            <h3 className="text-[17px] font-semibold">Refer a new customer</h3>
-            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-2">
+              </a>
+            </p>
+          </article>
+          <article className="plain-card" data-reveal style={revealDelay(80)}>
+            <h3>Refer a new customer</h3>
+            <p>
               Know someone who needs heating or cooling help? When you refer a new client to us, we'll
               extend a gift of appreciation for the business they bring our way.
             </p>
-            <p className="mt-3 text-[13.5px] leading-relaxed text-muted">
+            <p>
               {COMPANY.owner} shares the details of that thank-you personally — just reach out and
               we'll fill you in.
             </p>
-            <div className="mt-5">
-              <Cta href={telHref} variant="ghost">
-                <Phone size={16} /> Call {COMPANY.phone}
-              </Cta>
-            </div>
-          </Card>
+            <p>
+              <a className="btn btn-cyan" href={telHref}>
+                Call {COMPANY.phone}
+              </a>
+            </p>
+          </article>
         </div>
-      </Section>
-    </>
+      </Shell>
+    </Scene>
   );
 }

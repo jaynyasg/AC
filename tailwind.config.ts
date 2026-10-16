@@ -1,8 +1,7 @@
 import type { Config } from "tailwindcss";
 import houseStyle from "./src/tokens/tailwind.preset";
 
-// House-style preset (neutrals, type, motion) + a cool-blue "brand" scale
-// sampled from ac/background.png so the site is themed around it.
+// House-style preset plus the ice redesign palette (navy, frost, cyan).
 export default {
   presets: [houseStyle],
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
@@ -10,19 +9,20 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: "#eff5fb",
-          100: "#dbe8f5",
-          200: "#bcd4ec",
-          300: "#93b9df",
-          400: "#6498cf",
-          500: "#427bbd", // primary cool blue
-          600: "#33619e",
-          700: "#2b4f80",
-          800: "#27436a",
-          900: "#243a59",
-          950: "#18253b",
+          50: "#e7f6fb",
+          100: "#d6f4ff",
+          200: "#a8ecf6",
+          300: "#8aedf8",
+          400: "#7eebf8",
+          500: "#5fe3f5",
+          600: "#2ec8df",
+          700: "#0a4e66",
+          800: "#0c1e38",
+          900: "#0b2240",
+          950: "#071426",
         },
-        frost: "#cfe6f1", // pale icy highlight from the background
+        frost: "#d6f4ff",
+        night: "#071426",
       },
       backgroundImage: {
         "cool-fade": "linear-gradient(180deg,#f6f9fc 0%,#eaf1f8 100%)",

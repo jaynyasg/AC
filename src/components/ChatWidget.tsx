@@ -40,7 +40,7 @@ export default function ChatWidget() {
   return (
     <>
       {/* Launcher */}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+      <div className="chat-anchor fixed right-5 z-50 flex flex-col items-end gap-3">
         {nudge && !open && (
           <button
             type="button"
@@ -56,7 +56,7 @@ export default function ChatWidget() {
             type="button"
             aria-label="Open chat"
             onClick={openPanel}
-            className="grid h-14 w-14 place-items-center rounded-full bg-brand-500 text-white shadow-pop transition hover:bg-brand-600 active:scale-95"
+            className="grid h-14 w-14 place-items-center rounded-full bg-[#5fe3f5] text-[#04222c] shadow-pop transition hover:bg-[#8aedf8] active:scale-95"
           >
             <Chat size={26} />
           </button>
@@ -65,8 +65,8 @@ export default function ChatWidget() {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-5 right-5 z-50 flex h-[min(34rem,calc(100vh-2.5rem))] w-[min(24rem,calc(100vw-2.5rem))] animate-popIn flex-col overflow-hidden rounded-card border border-line bg-canvas shadow-pop">
-          <div className="flex items-center justify-between gap-2 border-b border-line bg-brand-500 px-4 py-3 text-white">
+        <div className="chat-anchor chat-panel fixed right-5 z-50 flex w-[min(24rem,calc(100vw-2.5rem))] animate-popIn flex-col overflow-hidden rounded-card border border-white/40 bg-[#f4f8fc] shadow-pop">
+          <div className="flex items-center justify-between gap-2 border-b border-white/10 bg-[#071426] px-4 py-3 text-[#f4f8fc]">
             <div className="flex items-center gap-2.5">
               <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/15">
                 <Snowflake size={18} />
@@ -96,8 +96,8 @@ export default function ChatWidget() {
                   className={
                     "max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-[13.5px] leading-relaxed " +
                     (m.role === "user"
-                      ? "bg-brand-500 text-white"
-                      : "border border-line bg-paper text-ink-2")
+                      ? "bg-[#071426] text-[#f4f8fc]"
+                      : "border border-line bg-white text-ink-2")
                   }
                 >
                   {m.content}
@@ -161,7 +161,7 @@ export default function ChatWidget() {
               type="submit"
               aria-label="Send"
               disabled={!draft.trim() || status === "sending"}
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-500 text-white transition hover:bg-brand-600 disabled:opacity-40"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#5fe3f5] text-[#04222c] transition hover:bg-[#8aedf8] disabled:opacity-40"
             >
               <Send size={18} />
             </button>

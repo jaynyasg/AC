@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { COMPANY, LINKS, MEMBERSHIP_PLANS, type MembershipPlan } from "../../shared/knowledge";
-import { Card, CheckList, Cta, Eyebrow, Section, SectionHeading } from "../components/Bits";
-import { Phone } from "../components/icons";
 import { enrollIntent } from "../lib/enroll";
+import { Scene, Shell, revealDelay } from "../components/Scene";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 const cadenceLabel: Record<MembershipPlan["cadence"], string> = {
   "one-time": "one-time",
-  month: "/mo",
-  year: "/yr",
+  month: "per month",
+  year: "per year",
 };
 
 export default function Membership() {
@@ -34,130 +33,121 @@ export default function Membership() {
         window.location.href = intent.url;
         return;
       }
-      setFallbacks((f) => ({ ...f, [plan.key]: { phone: intent.phone, email: intent.email } }));
+      setFallbacks((current) => ({
+        ...current,
+        [plan.key]: { phone: intent.phone, email: intent.email },
+      }));
     } catch (err) {
       console.error("[checkout] request failed:", err);
-      setFallbacks((f) => ({ ...f, [plan.key]: { phone: COMPANY.phone, email: COMPANY.email } }));
+      setFallbacks((current) => ({
+        ...current,
+        [plan.key]: { phone: COMPANY.phone, email: COMPANY.email },
+      }));
     } finally {
       setPending(null);
     }
   }
 
   return (
-    <>
-      <Section wash className="border-b border-line">
-        <Eyebrow>Membership &amp; Plans</Eyebrow>
-        <SectionHeading
-          title="Keep your comfort covered year-round"
-          lead="Stay ahead of breakdowns with regular tune-ups, priority scheduling, and member savings. Pick the plan that fits your home."
-        />
-      </Section>
+    <Scene name="maintenance" labelledBy="plans-title" underHeader>
+      <Shell>
+        <div className="section-head" data-reveal>
+          <p className="eyebrow">Membership &amp; plans</p>
+          <h2 id="plans-title">Keep your comfort covered year-round</h2>
+          <p>
+            Stay ahead of breakdowns with regular tune-ups, priority scheduling, and member savings.
+            Pick the plan that fits your home.
+          </p>
+        </div>
 
-      {status === "success" && (
-        <Section className="pt-0">
-          <div className="rounded-card border border-accent-green/30 bg-accent-green/5 p-6 text-center">
-            <h2 className="text-[18px] font-semibold">You're enrolled — welcome to the family!</h2>
-            <p className="mx-auto mt-2 max-w-md text-[14px] leading-relaxed text-muted">
+        {status === "success" && (
+          <article className="plain-card" data-reveal style={{ marginBottom: "1rem" }}>
+            <h3>You're enrolled — welcome to the family!</h3>
+            <p>
               {COMPANY.owner} will be in touch to confirm your first visit. Thank you for trusting us
               with your comfort.
             </p>
             {LINKS.googleReview && (
-              <div className="mt-5 flex justify-center">
-                <Cta href={LINKS.googleReview} variant="primary">
+              <p>
+                <a className="btn btn-ink" href={LINKS.googleReview}>
                   Leave us a Google review
-                </Cta>
-              </div>
+                </a>
+              </p>
             )}
-          </div>
-        </Section>
-      )}
-      {status === "cancel" && (
-        <Section className="pt-0">
-          <div className="rounded-card border border-line bg-paper p-6 text-center">
-            <p className="text-[14px] leading-relaxed text-muted">
+          </article>
+        )}
+        {status === "cancel" && (
+          <article className="plain-card" data-reveal style={{ marginBottom: "1rem" }}>
+            <p>
               No worries — you can enroll anytime. Not sure which plan fits? Call{" "}
-              <a href={telHref} className="font-semibold text-brand-700">
-                {COMPANY.phone}
-              </a>{" "}
-              and we'll help you choose.
+              <a href={telHref}>{COMPANY.phone}</a> and we'll help you choose.
             </p>
-          </div>
-        </Section>
-      )}
+          </article>
+        )}
 
-      <Section className={status ? "pt-0" : ""}>
-        <div className="grid gap-6 lg:grid-cols-3">
-          {MEMBERSHIP_PLANS.map((plan) => {
-            const fb = fallbacks[plan.key];
+        <div className="plan-grid">
+          {MEMBERSHIP_PLANS.map((plan, index) => {
+            const fallback = fallbacks[plan.key];
             return (
-              <Card
+              <article
                 key={plan.key}
-                className={`flex flex-col ${plan.featured ? "ring-2 ring-brand-400" : ""}`}
+                className={plan.featured ? "plan plan-featured" : "plan"}
+                data-reveal
+                style={revealDelay(index * 80)}
               >
-                {plan.featured && (
-                  <span className="mb-3 inline-flex w-fit rounded-pill bg-brand-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-brand-700">
-                    Most popular
-                  </span>
-                )}
-                <h3 className="text-[18px] font-semibold">{plan.name}</h3>
-                <p className="mt-1">
-                  <span className="text-3xl font-bold text-ink">{plan.price}</span>
-                  <span className="text-[13px] text-muted"> {cadenceLabel[plan.cadence]}</span>
+                {plan.featured && <p className="plan-flag">Featured</p>}
+                <h3>{plan.name}</h3>
+                <p className="price">
+                  {plan.price} <span>{cadenceLabel[plan.cadence]}</span>
                 </p>
-                <p className="mt-3 text-[14px] leading-relaxed text-muted">{plan.blurb}</p>
-                <div className="mt-5">
-                  <CheckList items={plan.features} />
-                </div>
-
-                <div className="mt-auto pt-6">
-                  {fb ? (
-                    <div className="space-y-2">
-                      <p className="text-[12.5px] text-muted">Call or email to enroll:</p>
-                      <Cta
-                        href={`tel:${fb.phone.replace(/\D/g, "")}`}
-                        variant="primary"
-                        className="w-full"
-                      >
-                        <Phone size={16} /> {fb.phone}
-                      </Cta>
-                      <Cta
-                        href={`mailto:${fb.email}?subject=${encodeURIComponent(`Enroll — ${plan.name}`)}`}
-                        variant="ghost"
-                        className="w-full"
+                <p>{plan.blurb}</p>
+                <ul>
+                  {plan.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <p>
+                  {fallback ? (
+                    <>
+                      Call or email to enroll:{" "}
+                      <a className="btn btn-cyan" href={`tel:${fallback.phone.replace(/\D/g, "")}`}>
+                        {fallback.phone}
+                      </a>{" "}
+                      <a
+                        className="btn btn-ink"
+                        href={`mailto:${fallback.email}?subject=${encodeURIComponent(`Enroll — ${plan.name}`)}`}
                       >
                         Email us
-                      </Cta>
-                    </div>
+                      </a>
+                    </>
                   ) : (
                     <button
                       type="button"
+                      className={plan.featured ? "btn btn-cyan" : "btn btn-ink"}
                       onClick={() => enroll(plan)}
                       disabled={pending === plan.key}
-                      className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-pill bg-brand-500 px-6 text-[14px] font-semibold text-white shadow-card transition hover:bg-brand-600 active:scale-[0.985] disabled:opacity-60"
                     >
                       {pending === plan.key ? "Opening checkout…" : "Enroll now"}
                     </button>
                   )}
-                </div>
-              </Card>
+                </p>
+              </article>
             );
           })}
         </div>
 
-        <p className="mt-6 text-[12.5px] leading-relaxed text-muted-2">
-          The $125 diagnostic fee is separate and applies to repair visits. Membership is billed
-          securely through Stripe and you can cancel anytime.
+        <p className="fine center" data-reveal>
+          The ${COMPANY.diagnosticFee} diagnostic fee is separate and applies to repair visits.
+          Membership is billed securely through Stripe and you can cancel anytime.
           {LINKS.manageMembership && (
             <>
               {" "}
-              <a href={LINKS.manageMembership} className="font-semibold text-brand-700 underline">
-                Manage my membership
-              </a>
-              .
+              <a href={LINKS.manageMembership}>Manage my membership</a>.
             </>
-          )}
+          )}{" "}
+          <Link to="/maintenance">See what's included in each tune-up</Link>.
         </p>
-      </Section>
-    </>
+      </Shell>
+    </Scene>
   );
 }
