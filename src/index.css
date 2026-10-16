@@ -1451,8 +1451,16 @@ body.nav-lock {
     display: flex;
   }
 
-  .header-cta {
+  .header-cta,
+  .header-book {
     display: inline-flex;
+  }
+
+  .header-book {
+    min-height: 2.5rem;
+    margin-left: 0.35rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.9rem;
   }
 
   .dock {
@@ -1558,7 +1566,8 @@ body.nav-lock {
 
   /* .btn sets display:inline-flex later in the file than the base .header-cta
      rule, so hide Call now again under the hamburger breakpoint. */
-  .header-cta {
+  .header-cta,
+  .header-book {
     display: none;
   }
 }
@@ -1792,14 +1801,21 @@ a.teaser-card:hover {
   color: var(--muted);
 }
 
-.nav-more {
+.nav-more,
+.nav-book {
   display: none;
 }
 
 @media (max-width: 899px) {
-  .site-nav.is-open .nav-more {
+  .site-nav.is-open .nav-more,
+  .site-nav.is-open .nav-book {
     display: block;
   }
+}
+
+#book-form {
+  scroll-margin-top: calc(var(--header) + 1rem);
+  scroll-margin-bottom: 6rem;
 }
 
 @media (min-width: 720px) {

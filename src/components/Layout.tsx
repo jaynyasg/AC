@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { COMPANY } from "../../shared/knowledge";
 import { legacyRedirect } from "../../shared/routes";
+import { BookServiceLink } from "./BookServiceLink";
 import ChatWidget from "./ChatWidget";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -43,7 +44,7 @@ export default function Layout() {
       <Footer />
       <div className="dock">
         <a href={telHref}>Call now</a>
-        <Link to="/book">Book service</Link>
+        <BookServiceLink>Book service</BookServiceLink>
       </div>
       <ChatWidget />
     </>

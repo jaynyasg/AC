@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { COMPANY, SERVICES } from "../../shared/knowledge";
 import { SizingBand } from "../components/Bands";
+import { BookServiceLink } from "../components/BookServiceLink";
 import { Scene, Shell, revealDelay } from "../components/Scene";
 import { usePageMeta } from "../lib/pageMeta";
 
@@ -52,17 +52,17 @@ export default function Services() {
               <p>
                 If your system isn't cooling or working properly, call and we'll get to the root of it.
               </p>
-              <Link to="/book">Book online</Link>
+              <BookServiceLink>Book online</BookServiceLink>
             </article>
             <article className="service-card" data-reveal style={revealDelay(80)}>
               <h3>Repairs &amp; installs</h3>
               <p>Not cooling or acting up? We get to the root of the problem fast.</p>
-              <Link to="/book">Book a repair</Link>
+              <BookServiceLink>Book a repair</BookServiceLink>
             </article>
             <article className="service-card" data-reveal style={revealDelay(160)}>
               <h3>Free estimates</h3>
               <p>Considering a new system or generator? Estimates are free.</p>
-              <Link to="/book">Request an estimate</Link>
+              <BookServiceLink>Request an estimate</BookServiceLink>
             </article>
           </div>
         </Shell>

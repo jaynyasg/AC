@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BookServiceLink } from "../components/BookServiceLink";
 import { Scene, Shell } from "../components/Scene";
 import { usePageMeta } from "../lib/pageMeta";
 
@@ -19,9 +20,7 @@ export default function NotFound() {
           <Link className="btn btn-ink" to="/">
             Back home
           </Link>{" "}
-          <Link className="btn btn-cyan" to="/book">
-            Book a visit
-          </Link>
+          <BookServiceLink className="btn btn-cyan">Book a visit</BookServiceLink>
         </p>
       </Shell>
     </Scene>

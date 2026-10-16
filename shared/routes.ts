@@ -1,6 +1,10 @@
 /** Canonical page for the combined maintenance program and membership plans. */
 export const MAINTENANCE_PATH = "/maintenance";
 
+/** Booking page, and the form on that page. Book service links use the hash so the form is in view. */
+export const BOOK_PATH = "/book";
+export const BOOK_FORM_PATH = "/book#book-form";
+
 const CHECKOUT_STATUS = ["success", "cancel"] as const;
 export type CheckoutStatus = (typeof CHECKOUT_STATUS)[number];
 
@@ -17,7 +21,7 @@ export const LEGACY_HASH_REDIRECTS: Record<string, string> = {
   "#services": "/services",
   "#maintenance": MAINTENANCE_PATH,
   "#area": "/service-area",
-  "#contact": "/book",
+  "#contact": BOOK_FORM_PATH,
   "#reviews": "/testimonials",
   "#tips": "/faq",
 };

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { COMPANY } from "../../shared/knowledge";
 import { useChat } from "../lib/useChat";
+import { BookServiceLink } from "./BookServiceLink";
 import { Chat, Send, Snowflake, X } from "./icons";
 
 const SUGGESTIONS = ["My AC isn't cooling", "Book a tune-up", "What's the diagnostic fee?"];
@@ -143,6 +144,14 @@ export default function ChatWidget() {
             )}
           </div>
 
+          <div className="border-t border-line bg-paper px-4 py-2">
+            <BookServiceLink
+              className="text-[13px] font-semibold text-[#04222c] underline"
+              onClick={() => setOpen(false)}
+            >
+              Book service
+            </BookServiceLink>
+          </div>
           <form
             className="flex items-center gap-2 border-t border-line bg-paper px-3 py-3"
             onSubmit={(e) => {

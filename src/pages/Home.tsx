@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import { Scene, Shell, revealDelay } from "../components/Scene";
 import { usePageMeta } from "../lib/pageMeta";
 import { FOOTER_NAV } from "../site-nav";
+import { BOOK_FORM_PATH } from "../../shared/routes";
 
 const BLURBS: Record<string, string> = {
   "/services": `Repairs, installs, and a $${COMPANY.diagnosticFee} diagnostic visit credited toward the repair. Free estimates on new systems.`,
@@ -40,7 +41,7 @@ export default function Home() {
               <Link
                 key={item.to}
                 className="plain-card teaser-card"
-                to={item.to}
+                to={item.to === "/book" ? BOOK_FORM_PATH : item.to}
                 data-reveal
                 style={revealDelay(index * 40)}
               >

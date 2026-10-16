@@ -11,6 +11,7 @@ import {
 } from "../../shared/knowledge";
 import { BEFORE_AFTER } from "../data/gallery";
 import { TESTIMONIALS } from "../data/testimonials";
+import { BookServiceLink } from "./BookServiceLink";
 import { enrollIntent } from "../lib/enroll";
 import BookingForm from "./BookingForm";
 import { Scene, Shell, revealDelay } from "./Scene";
@@ -358,9 +359,7 @@ export function MaintenanceBand({ underHeader = false }: { underHeader?: boolean
             business, we discount our rate for each additional unit.
           </p>
           <p>
-            <Link className="btn btn-ink" to="/book">
-              Sign up for maintenance
-            </Link>{" "}
+            <BookServiceLink className="btn btn-ink">Sign up for maintenance</BookServiceLink>{" "}
             <a className="btn btn-cyan" href={telHref}>
               Call {COMPANY.phone}
             </a>

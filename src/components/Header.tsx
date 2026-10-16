@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { COMPANY } from "../../shared/knowledge";
+import { BookServiceLink } from "./BookServiceLink";
 import { MORE_NAV, PRIMARY_NAV } from "../site-nav";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
@@ -69,11 +70,17 @@ export default function Header() {
               {item.label}
             </NavLink>
           ))}
+          <BookServiceLink className="nav-book" onClick={() => setOpen(false)}>
+            Book service
+          </BookServiceLink>
           <a className="nav-call" href={telHref}>
             Call {COMPANY.phone}
           </a>
         </nav>
 
+        <BookServiceLink className="btn btn-ghost header-book" onClick={() => setOpen(false)}>
+          Book service
+        </BookServiceLink>
         <a className="btn btn-cyan header-cta" href={telHref}>
           Call now
         </a>

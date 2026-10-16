@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { checkoutReturnUrl, legacyRedirect, MAINTENANCE_PATH } from "../shared/routes";
+import { BOOK_FORM_PATH, checkoutReturnUrl, legacyRedirect, MAINTENANCE_PATH } from "../shared/routes";
 import { FOOTER_NAV, MORE_NAV, PRIMARY_NAV } from "../src/site-nav";
 
 const vercel = JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8")) as {
@@ -38,7 +38,8 @@ describe("maintenance and membership routes", () => {
 
   it("sends old homepage section links to their pages", () => {
     expect(legacyRedirect("/", "", "#area")).toBe("/service-area");
-    expect(legacyRedirect("/", "", "#contact")).toBe("/book");
+    expect(legacyRedirect("/", "", "#contact")).toBe("/book#book-form");
+    expect(BOOK_FORM_PATH).toBe("/book#book-form");
     expect(legacyRedirect("/", "", "#maintenance")).toBe("/maintenance");
     expect(legacyRedirect("/services", "", "#area")).toBeNull();
   });
