@@ -1451,8 +1451,16 @@ body.nav-lock {
     display: flex;
   }
 
-  .header-cta {
+  .header-cta,
+  .header-book {
     display: inline-flex;
+  }
+
+  .header-book {
+    min-height: 2.5rem;
+    margin-left: 0.35rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.9rem;
   }
 
   .dock {
@@ -1558,7 +1566,8 @@ body.nav-lock {
 
   /* .btn sets display:inline-flex later in the file than the base .header-cta
      rule, so hide Call now again under the hamburger breakpoint. */
-  .header-cta {
+  .header-cta,
+  .header-book {
     display: none;
   }
 }
@@ -1720,7 +1729,62 @@ body.nav-lock {
 }
 
 .site-nav a[aria-current="page"] {
-  background: rgba(214, 232, 246, 0.14);
+  background: rgba(95, 227, 245, 0.18);
+  color: var(--brass);
+}
+
+.site-footer a[aria-current="page"] {
+  color: var(--brass);
+}
+
+.teaser-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+a.teaser-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.teaser-card h3 {
+  color: var(--ink);
+}
+
+a.teaser-card p {
+  color: var(--muted);
+  margin: 0;
+}
+
+a.teaser-card:hover {
+  border-color: rgba(95, 227, 245, 0.9);
+}
+
+@media (min-width: 720px) {
+  .teaser-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .teaser-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1240px) {
+  .brand-meta {
+    display: none;
+  }
+
+  .site-nav a {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.45rem;
+  }
 }
 
 .btn:disabled {
@@ -1737,14 +1801,21 @@ body.nav-lock {
   color: var(--muted);
 }
 
-.nav-more {
+.nav-more,
+.nav-book {
   display: none;
 }
 
 @media (max-width: 899px) {
-  .site-nav.is-open .nav-more {
+  .site-nav.is-open .nav-more,
+  .site-nav.is-open .nav-book {
     display: block;
   }
+}
+
+#book-form {
+  scroll-margin-top: calc(var(--header) + 1rem);
+  scroll-margin-bottom: 6rem;
 }
 
 @media (min-width: 720px) {

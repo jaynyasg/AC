@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import { COMPANY } from "../../shared/knowledge";
+import { BookServiceLink } from "./BookServiceLink";
 
 const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
@@ -89,9 +89,7 @@ export default function Hero() {
           <a className="btn btn-cyan" href={telHref}>
             Call now
           </a>
-          <Link className="btn btn-ghost" to="/#contact">
-            Book service
-          </Link>
+          <BookServiceLink className="btn btn-ghost">Book service</BookServiceLink>
         </div>
         <dl className="hero-stats">
           {STATS.map((stat) => (
