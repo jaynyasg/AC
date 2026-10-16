@@ -1374,18 +1374,12 @@ body.nav-lock {
     transform: none;
   }
 
-  .plain-card,
-  .service-card,
-  .plan {
+  a.teaser-card {
     transition: transform 420ms ease, border-color 420ms ease, box-shadow 420ms ease;
   }
 
-  .plain-card:hover,
-  .service-card:hover,
-  .plan:hover,
-  html.can-reveal .plain-card.is-in:hover,
-  html.can-reveal .service-card.is-in:hover,
-  html.can-reveal .plan.is-in:hover {
+  a.teaser-card:hover,
+  html.can-reveal a.teaser-card.is-in:hover {
     transform: translateY(-4px);
     border-color: rgba(95, 227, 245, 0.75);
     box-shadow: 0 18px 36px rgba(7, 28, 52, 0.12);
@@ -1631,6 +1625,7 @@ a.teaser-card {
   height: 100%;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 a.teaser-card h3 {
@@ -2033,13 +2028,30 @@ a.teaser-card:hover {
   background: linear-gradient(115deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 24%, transparent 42%);
 }
 
-.scene .plain-card::after,
-.scene .service-card::after,
-.scene .plan::after,
-.scene .tuneup::after,
-.scene .placeholder::after,
-.scene .soon::after,
-.scene .diagnostic::after,
+/* Info cards are not links. Keep the glass, drop the specular sheen. */
+.scene .plain-card:not(.teaser-card)::before,
+.scene .service-card::before,
+.scene .plan::before,
+.scene .tuneup::before,
+.scene .book-form::before,
+.scene .placeholder::before,
+.scene .soon::before,
+.scene .diagnostic::before {
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.045) 0%, transparent 24%);
+}
+
+.scene .plain-card:not(.teaser-card),
+.scene .service-card,
+.scene .plan,
+.scene .tuneup,
+.scene .book-form,
+.scene .placeholder,
+.scene .soon,
+.scene .diagnostic {
+  cursor: default;
+  border-top-color: rgba(214, 244, 255, 0.2);
+}
+
 .scene a.teaser-card::after {
   content: "";
   position: absolute;
@@ -2065,6 +2077,45 @@ a.teaser-card:hover {
 .scene a.teaser-card > * {
   position: relative;
   z-index: 2;
+}
+
+/* Whole-card links: cyan edge, link-colored title, and an arrow.
+   Info cards above do not get this. */
+.scene a.teaser-card {
+  border: 1px solid rgba(95, 227, 245, 0.4);
+  border-left-width: 3px;
+  border-left-color: #5fe3f5;
+  cursor: pointer;
+}
+
+.scene a.teaser-card:focus-visible {
+  outline: 2px solid #5fe3f5;
+  outline-offset: 3px;
+}
+
+.scene a.teaser-card h3 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: #8aedf8;
+}
+
+.scene a.teaser-card h3::after {
+  content: "→";
+  flex: none;
+  margin-top: 0.12em;
+  color: #8aedf8;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.scene a.teaser-card:hover h3,
+.scene a.teaser-card:focus-visible h3 {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
 }
 
 .scene .plan-featured {
@@ -2149,17 +2200,7 @@ a.teaser-card:hover {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .scene .plain-card,
-  .scene .service-card,
-  .scene .plan,
-  .scene .tuneup,
-  .scene .placeholder,
-  .scene .soon,
-  .scene .diagnostic,
   .scene a.teaser-card,
-  html.can-reveal .scene [data-reveal].plain-card,
-  html.can-reveal .scene [data-reveal].service-card,
-  html.can-reveal .scene [data-reveal].plan,
   html.can-reveal .scene [data-reveal].teaser-card {
     transition:
       opacity 700ms ease,
@@ -2168,32 +2209,30 @@ a.teaser-card:hover {
       border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .scene .plain-card:hover,
-  .scene .service-card:hover,
-  .scene .plan:hover,
-  .scene .tuneup:hover,
-  .scene .placeholder:hover,
-  .scene .diagnostic:hover,
+  .scene a.teaser-card h3::after {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   .scene a.teaser-card:hover,
-  html.can-reveal .scene [data-reveal].plain-card.is-in:hover,
-  html.can-reveal .scene [data-reveal].service-card.is-in:hover,
-  html.can-reveal .scene [data-reveal].plan.is-in:hover,
-  html.can-reveal .scene [data-reveal].teaser-card.is-in:hover {
+  .scene a.teaser-card:focus-visible,
+  html.can-reveal .scene [data-reveal].teaser-card.is-in:hover,
+  html.can-reveal .scene [data-reveal].teaser-card.is-in:focus-visible {
     transform: translateY(-6px);
-    border-color: rgba(95, 227, 245, 0.38);
+    border-color: rgba(95, 227, 245, 0.85);
+    border-left-color: #5fe3f5;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.36),
       0 30px 70px -18px rgba(2, 10, 24, 0.75),
       0 0 56px -10px rgba(95, 227, 245, 0.45);
   }
 
-  .scene .plain-card:hover::after,
-  .scene .service-card:hover::after,
-  .scene .plan:hover::after,
-  .scene .tuneup:hover::after,
-  .scene .placeholder:hover::after,
-  .scene .diagnostic:hover::after,
-  .scene a.teaser-card:hover::after {
+  .scene a.teaser-card:hover h3::after,
+  .scene a.teaser-card:focus-visible h3::after {
+    transform: translateX(4px);
+  }
+
+  .scene a.teaser-card:hover::after,
+  .scene a.teaser-card:focus-visible::after {
     left: 120%;
   }
 }
@@ -2204,14 +2243,9 @@ a.teaser-card:hover {
     transform: scale(1.08);
   }
 
-  .scene .plain-card,
-  .scene .plain-card::after,
-  .scene .service-card,
-  .scene .service-card::after,
-  .scene .plan,
-  .scene .plan::after,
   .scene a.teaser-card,
-  .scene a.teaser-card::after {
+  .scene a.teaser-card::after,
+  .scene a.teaser-card h3::after {
     transition: none;
   }
 }
