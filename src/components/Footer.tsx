@@ -6,7 +6,7 @@ const telHref = `tel:${COMPANY.phone.replace(/\D/g, "")}`;
 
 export default function Footer() {
   return (
-    <footer className="site-footer scene scene-dark has-snow" data-scene="footer">
+    <footer className="site-footer scene scene-dark" data-scene="footer">
       <div className="scene-bg" aria-hidden="true">
         <img className="from-bottom" src="/media/scenes/lagoon-bergs.jpg" alt="" />
       </div>

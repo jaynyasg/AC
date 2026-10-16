@@ -33,7 +33,9 @@ export default function Home() {
         <Shell>
           <div className="section-head" data-reveal>
             <p className="eyebrow">Explore</p>
-            <h2 id="explore-title">Find the page you need</h2>
+            <h2 id="explore-title">
+              Find the page <span>you need</span>
+            </h2>
             <p>Each topic has its own page — services, plans, the area we cover, and how to book.</p>
           </div>
           <div className="teaser-grid">

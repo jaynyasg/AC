@@ -45,7 +45,9 @@ export function TrustBand({ underHeader = false }: { underHeader?: boolean }) {
       <Shell>
         <div className="section-head" data-reveal>
           <p className="eyebrow">Why homeowners call</p>
-          <h2 id="trust-title">Comfort done right — and built to last</h2>
+          <h2 id="trust-title">
+            Comfort done right <span>— and built to last</span>
+          </h2>
           <p>
             Our team is dedicated to reliable, high-quality HVAC services that keep your home
             comfortable and energy-efficient.
@@ -100,16 +102,18 @@ export function SizingBand({
         <div className="split">
         <figure className="photo-frame" data-reveal>
           <img
-            src="/media/technician.jpg"
-            alt="HVAC technician in a hard hat and blue uniform using gauges on an outdoor air-conditioning condenser."
+            src="/media/scenes/blue-berg.jpg"
+            alt="A glossy blue iceberg in dark water. Atmosphere only — not a photograph of a job site."
             width="1800"
-            height="1200"
+            height="1012"
           />
-          <figcaption>Stock photograph for atmosphere. Not a photo of Di Felice's crew.</figcaption>
+          <figcaption>Glacier ice, shown for atmosphere. Not a photograph of our work.</figcaption>
         </figure>
         <div data-reveal style={revealDelay(80)}>
           <p className="eyebrow">Right-sized comfort</p>
-          <h2 id="sizing-title">Sized for the rooms you actually live in</h2>
+          <h2 id="sizing-title">
+            Sized for the rooms <span>you actually live in</span>
+          </h2>
           {estimateLead && (
             <p>
               Just want an estimate on a new AC system? We'll gladly come out, run tests, and calculate
@@ -212,7 +216,9 @@ export function MaintenanceBand({ underHeader = false }: { underHeader?: boolean
       <Shell>
         <div className="section-head" data-reveal>
           <p className="eyebrow">Bi-yearly maintenance program</p>
-          <h2 id="maint-title">Maintenance &amp; Membership</h2>
+          <h2 id="maint-title">
+            Maintenance <span>&amp; membership</span>
+          </h2>
           <p>
             Get ahead of problems — before they become hardships. In spring and fall we have the
             proper time to address issues before they worsen or damage critical equipment. Just like a
@@ -376,7 +382,9 @@ export function AreaBand({ underHeader = false }: { underHeader?: boolean }) {
       <Shell className="area-layout">
         <div data-reveal>
           <p className="eyebrow eyebrow-light">Service area</p>
-          <h2 id="area-title">Houston, TX and surrounding areas</h2>
+          <h2 id="area-title">
+            Houston, TX <span>and surrounding areas</span>
+          </h2>
           <p>
             {COMPANY.name} Reliable AC &amp; heating for {COMPANY.area}. {COMPANY.scope}.
           </p>
@@ -412,7 +420,15 @@ export function ReviewsBand({ underHeader = false }: { underHeader?: boolean }) 
         <div className="section-head" data-reveal>
           <p className="eyebrow">Testimonials</p>
           <h2 id="reviews-title">
-            {hasReviews ? "What our customers say" : "Customer reviews are on the way"}
+            {hasReviews ? (
+              <>
+                What our customers <span>say</span>
+              </>
+            ) : (
+              <>
+                Customer reviews <span>are on the way</span>
+              </>
+            )}
           </h2>
           <p>
             {hasReviews
@@ -477,7 +493,9 @@ export function TipsBand({
       <Shell>
         <div className="section-head" data-reveal>
           <p className="eyebrow">FAQ &amp; homeowner tips</p>
-          <h2 id="tips-title">Simple habits that keep your system healthy</h2>
+          <h2 id="tips-title">
+            Simple habits that keep <span>your system healthy</span>
+          </h2>
           <p>
             A few things every homeowner can do to add longevity and avoid common issues. The
             dangerous components are handled during our maintenance visits — these are the safe ones
@@ -506,7 +524,9 @@ export function ContactBand({ underHeader = false }: { underHeader?: boolean }) 
       <Shell className="contact-grid">
         <div data-reveal>
           <p className="eyebrow">Contact</p>
-          <h2 id="contact-title">Ready when you are</h2>
+          <h2 id="contact-title">
+            Ready when <span>you are</span>
+          </h2>
           <p>
             Whether it's an urgent repair or a free estimate on a new system, a quick call is all it
             takes to choose what's best for your family's comfort.

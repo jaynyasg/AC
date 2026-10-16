@@ -1580,133 +1580,11 @@ body.nav-lock {
   }
 }
 
-/* Phones: show more of each section photo around a narrower glass card. */
+/* Hero copy width on phones stays as it was. Section phone layout lives in
+   the glamour block below — one cover photo, no repeated tiles. */
 @media (max-width: 480px) {
-  html {
-    scroll-padding-bottom: 5.5rem;
-  }
-
-  .hero-copy,
-  .scene > .shell,
-  .site-footer > .shell {
+  .hero-copy {
     width: calc(100% - 3.5rem);
-  }
-
-  .band.scene,
-  .referral.scene {
-    padding-top: 5.5rem;
-    padding-bottom: 5.5rem;
-  }
-
-  .site-footer {
-    padding-top: 5.5rem;
-    padding-bottom: 7.5rem;
-  }
-
-  .scene-light > .shell {
-    background: rgba(244, 248, 252, 0.8);
-  }
-
-  .scene-dark > .shell {
-    background: rgba(7, 20, 38, 0.7);
-  }
-
-  .plain-card,
-  .service-card,
-  .plan,
-  .tuneup,
-  .book-form,
-  .placeholder,
-  .soon {
-    background: rgba(255, 255, 255, 0.82);
-  }
-
-  .band-night .service-card,
-  .band-night .placeholder,
-  .band-night .diagnostic {
-    background: rgba(14, 39, 68, 0.55);
-  }
-
-  /* Phone bands are short, so a height-fitted cover image zoomed into sky.
-     Use a tighter crop of the same photo and park the berg or glossy ice
-     in the strip above the card. Desktop keeps the full-frame <img>. */
-  .scene-bg {
-    overflow: hidden;
-    background-repeat: repeat-y;
-    background-color: #12304f;
-  }
-
-  .scene-light .scene-bg {
-    background-color: #d7e6f2;
-  }
-
-  .scene-bg img {
-    visibility: hidden;
-  }
-
-  section[aria-labelledby="trust-title"] .scene-bg,
-  [data-scene="trust"] .scene-bg {
-    background-image: url("/media/scenes/mobile/bubbles.jpg");
-    background-size: 1671px 640px;
-    background-position: -556px -96px;
-  }
-
-  #services .scene-bg,
-  .site-footer .scene-bg,
-  [data-scene="services"] .scene-bg,
-  [data-scene="footer"] .scene-bg {
-    background-image: url("/media/scenes/mobile/lagoon.jpg");
-    background-size: 2259px 460px;
-    background-position: -482px -161px;
-  }
-
-  section[aria-labelledby="sizing-title"] .scene-bg,
-  [data-scene="sizing"] .scene-bg {
-    background-image: url("/media/scenes/mobile/tabular.jpg");
-    background-size: 1314px 340px;
-    background-position: -462px 0;
-  }
-
-  #maintenance .scene-bg,
-  [data-scene="maintenance"] .scene-bg {
-    background-image: url("/media/scenes/mobile/clear.jpg");
-    background-size: 1609px 700px;
-    background-position: -448px -210px;
-  }
-
-  #area .scene-bg,
-  [data-scene="area"] .scene-bg {
-    background-image: url("/media/scenes/mobile/under.jpg");
-    background-size: 2442px 520px;
-    background-position: -1026px 0;
-  }
-
-  #reviews .scene-bg,
-  [data-scene="reviews"] .scene-bg {
-    background-image: url("/media/scenes/mobile/plates.jpg");
-    background-size: 1548px 700px;
-    background-position: -579px -35px;
-  }
-
-  #tips .scene-bg,
-  [data-scene="tips"] .scene-bg {
-    background-image: url("/media/scenes/mobile/sheet.jpg");
-    background-size: 1116px 640px;
-    background-position: -139px -32px;
-  }
-
-  section[aria-labelledby="referral-title"] .scene-bg,
-  [data-scene="referral"] .scene-bg {
-    background-image: url("/media/scenes/mobile/blue.jpg");
-    background-size: 1806px 520px;
-    background-position: -437px -286px;
-  }
-
-  #contact .scene-bg,
-  [data-scene="contact"] .scene-bg {
-    background-image: url("/media/scenes/mobile/cape.jpg");
-    background-size: 1687px 640px;
-    background-position: -564px -128px;
   }
 }
 
@@ -1849,6 +1727,606 @@ a.teaser-card:hover {
 
   .chat-anchor.chat-panel {
     height: min(34rem, calc(100vh - 7rem));
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Glamour sections — every band below the hero.
+ * Reference: the Fantasia "Why homeowners call" mockup.
+ * Navy wash on the ice, frosted cards, frost seams. The hero is untouched.
+ * ------------------------------------------------------------------ */
+
+.scene {
+  background: #071426;
+  color: #c5d7e6;
+  padding-top: 7rem;
+  padding-bottom: 7.5rem;
+}
+
+.scene-bg {
+  z-index: 0;
+}
+
+.scene-bg img {
+  filter: saturate(1.3) contrast(1.2) brightness(1.16) hue-rotate(6deg);
+  transform: scale(1.08);
+  animation: kenburns 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.08) translate3d(0, 0, 0); }
+  to { transform: scale(1.16) translate3d(-1.5%, -1%, 0); }
+}
+
+.scene .scene-bg::after,
+.scene-light .scene-bg::after,
+.scene-dark .scene-bg::after {
+  background:
+    linear-gradient(180deg, rgba(5, 16, 36, 0) 0%, rgba(5, 16, 36, 0) 30%, rgba(5, 16, 36, 0.42) 48%, rgba(5, 16, 36, 0.55) 78%, rgba(5, 16, 36, 0.32) 100%),
+    radial-gradient(120% 90% at 78% 55%, rgba(16, 64, 110, 0) 0%, rgba(8, 32, 68, 0.28) 58%, rgba(5, 16, 36, 0.62) 100%),
+    linear-gradient(90deg, rgba(5, 18, 40, 0.9) 0%, rgba(8, 32, 68, 0.72) 46%, rgba(8, 28, 56, 0.42) 76%, rgba(16, 64, 110, 0.18) 100%),
+    linear-gradient(122deg, rgba(214, 244, 255, 0.12) 0%, transparent 26%);
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 180px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, #071426 0%, rgba(7, 20, 38, 0.6) 45%, rgba(7, 20, 38, 0) 100%);
+}
+
+.scene::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(214, 244, 255, 0.75) 30%, rgba(95, 227, 245, 0.9) 50%, rgba(214, 244, 255, 0.75) 70%, transparent);
+  box-shadow: 0 0 18px 2px rgba(95, 227, 245, 0.45), 0 -40px 60px -20px rgba(214, 244, 255, 0.18);
+}
+
+.has-crystals::before,
+.has-snow::before,
+.has-snow::after,
+.has-drift::before,
+.has-drift::after {
+  content: none;
+  display: none;
+  animation: none;
+  background: none;
+}
+
+.scene > .shell,
+.scene-light > .shell,
+.scene-dark > .shell {
+  z-index: 2;
+  width: min(1120px, calc(100% - 3.25rem));
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.scene .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #d6f4ff;
+}
+
+.scene .eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brass));
+}
+
+.scene h2 {
+  margin: 0.7rem 0 1rem;
+  color: #f7fbfe;
+  font-size: clamp(2.3rem, 4.2vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-shadow: 0 2px 24px rgba(5, 16, 36, 0.45);
+}
+
+.scene h2 span {
+  display: block;
+  color: #d6f4ff;
+  background: linear-gradient(100deg, #d6f4ff 0%, #ffffff 40%, #8aedf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.scene h3,
+.scene .footer-name,
+.scene .big-phone,
+.scene .big-phone a,
+.scene .diagnostic-fee {
+  color: #f7fbfe;
+}
+
+.scene .section-head p,
+.scene .split p,
+.scene .service-card p,
+.scene .plan p,
+.scene .placeholder p,
+.scene .soon p,
+.scene .referral p,
+.scene .contact-grid > div > p,
+.scene .plain-card p,
+.scene .fine,
+.scene figcaption,
+.scene .check-list li,
+.scene .plan li,
+.scene .tips li,
+.scene .tuneup summary span,
+.scene .tuneup ul,
+.scene .contact-facts dd,
+.scene .hours-inline,
+.scene li {
+  color: #c5d7e6;
+}
+
+.scene .section-head {
+  max-width: 40rem;
+}
+
+.scene .section-head p {
+  max-width: 34rem;
+  font-size: 1.12rem;
+}
+
+.scene a.teaser-card h3,
+.scene .plain-card h3,
+.scene .service-card h3,
+.scene .plan h3,
+.referral .plain-card,
+.referral .plain-card p,
+.referral .plain-card li {
+  color: #f7fbfe;
+}
+
+.scene a.teaser-card p {
+  color: #c5d7e6;
+}
+
+.scene .center a,
+.scene .fine a,
+.scene .service-card a,
+.scene .soon a,
+.scene .warranty a {
+  color: #d6f4ff;
+}
+
+.scene .price,
+.scene .plan-featured .price,
+.scene .plan-featured h3 {
+  color: #f7fbfe !important;
+}
+
+.scene .price span,
+.scene .plan-featured p,
+.scene .plan-featured .price span,
+.scene .plan-featured li {
+  color: #c5d7e6;
+}
+
+.scene .contact-facts dt {
+  color: #8aedf8;
+}
+
+.scene .contact-facts a {
+  color: #f7fbfe;
+}
+
+.scene .check-list li::before {
+  background: #5fe3f5;
+  box-shadow: 0 0 8px rgba(95, 227, 245, 0.65);
+}
+
+.scene .plan li::before {
+  color: #8aedf8;
+}
+
+.scene .warranty {
+  border-top-color: rgba(214, 244, 255, 0.22);
+}
+
+.scene .icon,
+.scene .icon-brass {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 22px;
+  border-radius: 16px;
+  color: #eafcff;
+  background: radial-gradient(circle at 30% 25%, rgba(214, 244, 255, 0.55), rgba(95, 227, 245, 0.18) 55%, rgba(95, 227, 245, 0.06));
+  border: 1px solid rgba(214, 244, 255, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 22px rgba(95, 227, 245, 0.35);
+}
+
+.scene .icon svg,
+.scene .icon-brass svg {
+  width: 24px;
+  height: 24px;
+  stroke: #eafcff;
+  stroke-width: 1.8;
+  filter: drop-shadow(0 0 4px rgba(95, 227, 245, 0.8));
+}
+
+.scene .plain-card:has(.icon) h3::before,
+.scene .service-card:has(.icon) h3::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 0 0 16px;
+  background: linear-gradient(90deg, rgba(95, 227, 245, 0.6), rgba(214, 244, 255, 0));
+}
+
+.scene .trust-grid,
+.scene .service-grid,
+.scene .plan-grid,
+.scene .teaser-grid {
+  gap: 22px;
+}
+
+.scene .plain-card,
+.scene .service-card,
+.scene .plan,
+.scene .tuneup,
+.scene .book-form,
+.scene .placeholder,
+.scene .soon,
+.scene .diagnostic,
+.scene a.teaser-card {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 28px;
+  border-radius: 22px;
+  color: #c5d7e6;
+  background: linear-gradient(155deg, rgba(214, 244, 255, 0.18) 0%, rgba(7, 20, 38, 0.64) 24%, rgba(7, 20, 38, 0.72) 100%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(214, 244, 255, 0.16);
+  border-top-color: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(95, 227, 245, 0.1),
+    0 24px 60px -18px rgba(2, 10, 24, 0.65),
+    0 0 0 1px rgba(95, 227, 245, 0.04),
+    0 0 40px -12px rgba(95, 227, 245, 0.28);
+}
+
+.scene .plain-card::before,
+.scene .service-card::before,
+.scene .plan::before,
+.scene .tuneup::before,
+.scene .book-form::before,
+.scene .placeholder::before,
+.scene .soon::before,
+.scene .diagnostic::before,
+.scene a.teaser-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 24%, transparent 42%);
+}
+
+.scene .plain-card::after,
+.scene .service-card::after,
+.scene .plan::after,
+.scene .tuneup::after,
+.scene .placeholder::after,
+.scene .soon::after,
+.scene .diagnostic::after,
+.scene a.teaser-card::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -60%;
+  z-index: 3;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(214, 244, 255, 0.28) 50%, transparent 100%);
+  transform: skewX(-18deg);
+  transition: left 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scene .plain-card > *,
+.scene .service-card > *,
+.scene .plan > *,
+.scene .tuneup > *,
+.scene .book-form > *,
+.scene .placeholder > *,
+.scene .soon > *,
+.scene .diagnostic > *,
+.scene a.teaser-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.scene .plan-featured {
+  background: linear-gradient(155deg, rgba(214, 244, 255, 0.22) 0%, rgba(8, 40, 72, 0.68) 36%, rgba(5, 16, 36, 0.78) 100%);
+  border-color: rgba(95, 227, 245, 0.5);
+}
+
+.scene .tuneup {
+  padding: 0;
+}
+
+.scene .tuneup summary {
+  padding: 1.1rem 1.35rem;
+}
+
+.scene .tuneup ul {
+  padding: 0 1.35rem 1.15rem 2.4rem;
+}
+
+.scene .chip-list li {
+  color: #f7fbfe;
+  background: linear-gradient(155deg, rgba(214, 244, 255, 0.16), rgba(7, 20, 38, 0.4));
+  border: 1px solid rgba(214, 244, 255, 0.28);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+}
+
+.scene .tips li {
+  color: #c5d7e6;
+  background: linear-gradient(155deg, rgba(214, 244, 255, 0.14) 0%, rgba(14, 39, 68, 0.4) 48%, rgba(7, 20, 38, 0.55) 100%);
+  border: 1px solid rgba(214, 244, 255, 0.16);
+  border-top-color: rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 40px -16px rgba(2, 10, 24, 0.55);
+}
+
+.scene .tips li::before {
+  color: #8aedf8;
+}
+
+.scene .photo-frame img {
+  border-radius: 22px;
+  border: 1px solid rgba(214, 244, 255, 0.2);
+  filter: saturate(1.25) contrast(1.12) brightness(1.08);
+  box-shadow: 0 24px 60px -18px rgba(2, 10, 24, 0.65);
+}
+
+.scene .field label span {
+  color: #c5d7e6;
+}
+
+.scene .field-error,
+.scene .book-form .form-status {
+  color: #ffb4bc;
+}
+
+.scene .field label {
+  color: #f7fbfe;
+}
+
+.scene .field input,
+.scene .field select,
+.scene .field textarea {
+  color: #0b2240;
+  background: #f7fbfe;
+  border-color: rgba(214, 244, 255, 0.45);
+}
+
+.scene .field input::placeholder,
+.scene .field textarea::placeholder {
+  color: #5c7388;
+}
+
+.scene.under-header {
+  padding-top: calc(var(--header) + 4.5rem);
+}
+
+.site-footer.scene {
+  padding-top: 4.75rem;
+  padding-bottom: 3.25rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene .plain-card,
+  .scene .service-card,
+  .scene .plan,
+  .scene .tuneup,
+  .scene .placeholder,
+  .scene .soon,
+  .scene .diagnostic,
+  .scene a.teaser-card,
+  html.can-reveal .scene [data-reveal].plain-card,
+  html.can-reveal .scene [data-reveal].service-card,
+  html.can-reveal .scene [data-reveal].plan,
+  html.can-reveal .scene [data-reveal].teaser-card {
+    transition:
+      opacity 700ms ease,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .scene .plain-card:hover,
+  .scene .service-card:hover,
+  .scene .plan:hover,
+  .scene .tuneup:hover,
+  .scene .placeholder:hover,
+  .scene .diagnostic:hover,
+  .scene a.teaser-card:hover,
+  html.can-reveal .scene [data-reveal].plain-card.is-in:hover,
+  html.can-reveal .scene [data-reveal].service-card.is-in:hover,
+  html.can-reveal .scene [data-reveal].plan.is-in:hover,
+  html.can-reveal .scene [data-reveal].teaser-card.is-in:hover {
+    transform: translateY(-6px);
+    border-color: rgba(95, 227, 245, 0.38);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.36),
+      0 30px 70px -18px rgba(2, 10, 24, 0.75),
+      0 0 56px -10px rgba(95, 227, 245, 0.45);
+  }
+
+  .scene .plain-card:hover::after,
+  .scene .service-card:hover::after,
+  .scene .plan:hover::after,
+  .scene .tuneup:hover::after,
+  .scene .placeholder:hover::after,
+  .scene .diagnostic:hover::after,
+  .scene a.teaser-card:hover::after {
+    left: 120%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-bg img {
+    animation: none;
+    transform: scale(1.08);
+  }
+
+  .scene .plain-card,
+  .scene .plain-card::after,
+  .scene .service-card,
+  .scene .service-card::after,
+  .scene .plan,
+  .scene .plan::after,
+  .scene a.teaser-card,
+  .scene a.teaser-card::after {
+    transition: none;
+  }
+}
+
+/* Phones: inset cards so ice shows on both sides, cover (never tile) the
+   photo, darken the wash top and bottom, and keep the chat + call bar in
+   one bottom band so they don't sit on card text. */
+@media (max-width: 899px) {
+  .chat-anchor:not(.chat-panel) {
+    right: 0.85rem;
+    bottom: 0.95rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .chat-anchor:not(.chat-panel) > button[aria-label="Open chat"] {
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+
+  /* The proactive bubble is a second layer on top of the call bar and
+     was covering card copy. The launcher stays in that same bottom band. */
+  .chat-nudge {
+    display: none;
+  }
+
+  .chat-anchor.chat-panel {
+    right: 0.75rem;
+    bottom: 5.35rem;
+    flex-direction: column;
+    align-items: stretch;
+    height: min(32rem, calc(100vh - 8rem));
+  }
+
+  .dock {
+    right: 4.7rem;
+  }
+
+  .band.scene,
+  .referral.scene,
+  .site-footer.scene {
+    padding-bottom: 6.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-bottom: 8.5rem;
+  }
+
+  .scene > .shell,
+  .site-footer > .shell {
+    width: calc(100% - 44px);
+  }
+
+  .band.scene,
+  .referral.scene {
+    padding-top: 5.25rem;
+    padding-bottom: 7.25rem;
+  }
+
+  .band.scene.under-header,
+  .referral.scene.under-header,
+  .scene.under-header {
+    padding-top: calc(var(--header) + 2.4rem);
+  }
+
+  .site-footer.scene {
+    padding-top: 4.5rem;
+    padding-bottom: 8.5rem;
+  }
+
+  .scene .scene-bg,
+  section[aria-labelledby] .scene-bg,
+  [data-scene] .scene-bg {
+    overflow: hidden;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #071426;
+  }
+
+  .scene .scene-bg img {
+    visibility: visible;
+    object-fit: cover;
+    object-position: 30% center;
+    height: 100%;
+  }
+
+  .scene .scene-bg::after,
+  .scene-light .scene-bg::after,
+  .scene-dark .scene-bg::after {
+    background:
+      linear-gradient(180deg, rgba(5, 16, 36, 0.86) 0%, rgba(5, 16, 36, 0.52) 30%, rgba(5, 16, 36, 0.58) 72%, rgba(5, 16, 36, 0.78) 100%),
+      linear-gradient(122deg, rgba(214, 244, 255, 0.1) 0%, transparent 28%);
+  }
+
+  .scene .plain-card,
+  .scene .service-card,
+  .scene .plan,
+  .scene .tuneup,
+  .scene .book-form,
+  .scene .placeholder,
+  .scene .soon,
+  .scene .diagnostic,
+  .scene a.teaser-card,
+  .scene .tips li {
+    padding: 24px 22px;
+    background: linear-gradient(155deg, rgba(214, 244, 255, 0.16) 0%, rgba(7, 20, 38, 0.68) 28%, rgba(7, 20, 38, 0.76) 100%);
+  }
+
+  .scene .section-head {
+    margin-bottom: 1.4rem;
+  }
+
+  .scene .trust-grid,
+  .scene .service-grid,
+  .scene .plan-grid,
+  .scene .teaser-grid {
+    gap: 18px;
   }
 }
 }

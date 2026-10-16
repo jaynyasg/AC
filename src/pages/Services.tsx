@@ -17,7 +17,9 @@ export default function Services() {
         <Shell>
           <div className="section-head" data-reveal>
             <p className="eyebrow eyebrow-light">Services</p>
-            <h2 id="services-page-title">Repairs, installs &amp; honest diagnostics</h2>
+            <h2 id="services-page-title">
+              Repairs, installs <span>&amp; honest diagnostics</span>
+            </h2>
             <p>
               Your heating and cooling system is one of the most expensive and important systems in
               your home. Regular service keeps it running efficiently, prevents costly breakdowns, and
